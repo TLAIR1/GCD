@@ -1,0 +1,689 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/GraphCoOp/rn50_ep200.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '16', 'SEED', '1', 'MODEL.BACKBONE.NAME', 'RN50', 'OPTIM.MAX_EPOCH', '50', 'TRAINER.GRAPHCOOP.PREC', 'fp32', 'TRAINER.GRAPHCOOP.USE_GLS', 'False', 'TRAINER.GRAPHCOOP.USE_LAP', 'False', 'TRAINER.GRAPHCOOP.USE_GCN', 'False', 'TRAINER.GRAPHCOOP.USE_GCD', 'True']
+output_dir: output/oxford_pets/GCD/seed1
+resume: 
+root: /home/f20220580/data
+seed: -1
+source_domains: None
+target_domains: None
+trainer: GraphCoOp
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 4
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 32
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /home/f20220580/data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: all
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bilinear
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ()
+MODEL:
+  BACKBONE:
+    NAME: RN50
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 50
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/oxford_pets/GCD/seed1
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 10
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  GRAPHCOOP:
+    ALPHA: 0.1
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    GAMMA_DIFF: 1.0
+    GCN_HIDDEN: 256
+    LAMBDA_LAP: 0.01
+    N_CTX: 16
+    N_PROTO: 8
+    PREC: fp32
+    THRESHOLD: 0.3
+    USE_GCD: True
+    USE_GCN: False
+    USE_GLS: False
+    USE_LAP: False
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: GraphCoOp
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 1.12.1
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.4 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.31
+
+Python version: 3.8.20 (default, Oct  3 2024, 15:24:27)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.4.0-216-generic-x86_64-with-glibc2.17
+Is CUDA available: False
+CUDA runtime version: 10.1.243
+GPU models and configuration: 
+GPU 0: Tesla M10
+GPU 1: Tesla M10
+GPU 2: Tesla M10
+GPU 3: Tesla M10
+
+Nvidia driver version: 535.230.02
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.24.2
+[pip3] torch==1.12.1
+[pip3] torchmetrics==0.11.4
+[pip3] torchvision==0.13.1
+[conda] blas                       1.0              mkl
+[conda] cudatoolkit                11.3.1           h2bc3f7f_2
+[conda] mkl                        2023.1.0         h213fc3f_46344
+[conda] mkl-service                2.4.0            py38h5eee18b_1
+[conda] mkl_fft                    1.3.8            py38h5eee18b_0
+[conda] mkl_random                 1.2.4            py38hdb19cb5_0
+[conda] numpy                      1.24.3           py38hf6e8229_1
+[conda] numpy-base                 1.24.3           py38h060ed82_1
+[conda] pytorch                    1.12.1           py3.8_cuda11.3_cudnn8.3.2_0  pytorch
+[conda] pytorch-mutex              1.0              cuda                         pytorch
+[conda] torchvision                0.13.1           py38_cu113                   pytorch
+        Pillow (10.4.0)
+
+Loading trainer: GraphCoOp
+Loading dataset: OxfordPets
+Reading split from /home/f20220580/data/oxford_pets/split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from /home/f20220580/data/oxford_pets/split_fewshot/shot_16-seed_1.pkl
+Building transform_train
++ resize to 224x224
++ to torch tensor of range [0, 1]
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
+---------  ----------
+Dataset    OxfordPets
+# classes  37
+# train_x  592
+# val      148
+# test     3,669
+---------  ----------
+Loading CLIP (backbone: RN50)
+Building semantic class graph from CLIP text embeddings ...
+GCD: built diffusion matrix Phi (gamma=1.0, K=37, R=8)
+Building custom CLIP with graph modifications ...
+Turning off gradients in CLIP ...
+Trainable parameters: 74,024
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+Initialize tensorboard (log_dir=output/oxford_pets/GCD/seed1/tensorboard)
+epoch [1/50] batch [10/18] time 4.781 (4.877) data 0.008 (0.054) loss 2.0662 (2.5205) loss_cls 2.0662 (2.5205) loss_lap 0.0000 (0.0000) acc 43.7500 (29.0625) lr 1.0000e-05 eta 1:12:20
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 61
+* accuracy: 41.2%
+* error: 58.8%
+* macro_f1: 36.7%
+epoch [2/50] batch [10/18] time 4.569 (4.749) data 0.010 (0.071) loss 2.2706 (1.8834) loss_cls 2.2706 (1.8834) loss_lap 0.0000 (0.0000) acc 34.3750 (44.3750) lr 2.0000e-03 eta 1:09:00
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 88
+* accuracy: 59.5%
+* error: 40.5%
+* macro_f1: 58.2%
+epoch [3/50] batch [10/18] time 4.658 (4.810) data 0.009 (0.070) loss 1.8552 (1.6280) loss_cls 1.8552 (1.6280) loss_lap 0.0000 (0.0000) acc 40.6250 (50.3125) lr 1.9980e-03 eta 1:08:27
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 91
+* accuracy: 61.5%
+* error: 38.5%
+* macro_f1: 60.8%
+epoch [4/50] batch [10/18] time 4.728 (4.792) data 0.007 (0.065) loss 1.3390 (1.5779) loss_cls 1.3390 (1.5779) loss_lap 0.0000 (0.0000) acc 59.3750 (52.1875) lr 1.9921e-03 eta 1:06:45
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 62.1%
+epoch [5/50] batch [10/18] time 3.596 (4.069) data 0.007 (0.056) loss 1.4724 (1.4646) loss_cls 1.4724 (1.4646) loss_lap 0.0000 (0.0000) acc 56.2500 (54.0625) lr 1.9823e-03 eta 0:55:28
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 67.8%
+epoch [6/50] batch [10/18] time 4.689 (4.466) data 0.008 (0.067) loss 1.3054 (1.2750) loss_cls 1.3054 (1.2750) loss_lap 0.0000 (0.0000) acc 50.0000 (61.5625) lr 1.9686e-03 eta 0:59:33
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.1%
+epoch [7/50] batch [10/18] time 4.679 (4.572) data 0.007 (0.062) loss 1.2925 (1.2416) loss_cls 1.2925 (1.2416) loss_lap 0.0000 (0.0000) acc 59.3750 (60.0000) lr 1.9511e-03 eta 0:59:35
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.3%
+epoch [8/50] batch [10/18] time 4.470 (4.413) data 0.007 (0.061) loss 1.2893 (1.1372) loss_cls 1.2893 (1.1372) loss_lap 0.0000 (0.0000) acc 59.3750 (63.4375) lr 1.9298e-03 eta 0:56:11
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.2%
+epoch [9/50] batch [10/18] time 4.567 (4.717) data 0.007 (0.059) loss 1.7494 (1.1211) loss_cls 1.7494 (1.1211) loss_lap 0.0000 (0.0000) acc 43.7500 (64.3750) lr 1.9048e-03 eta 0:58:38
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 63.1%
+epoch [10/50] batch [10/18] time 3.925 (4.189) data 0.009 (0.062) loss 0.8962 (1.0771) loss_cls 0.8962 (1.0771) loss_lap 0.0000 (0.0000) acc 75.0000 (64.0625) lr 1.8763e-03 eta 0:50:49
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+epoch [11/50] batch [10/18] time 4.683 (4.760) data 0.008 (0.059) loss 0.9844 (1.0318) loss_cls 0.9844 (1.0318) loss_lap 0.0000 (0.0000) acc 71.8750 (67.8125) lr 1.8443e-03 eta 0:56:19
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 64.0%
+epoch [12/50] batch [10/18] time 4.598 (4.677) data 0.007 (0.063) loss 0.9899 (1.0611) loss_cls 0.9899 (1.0611) loss_lap 0.0000 (0.0000) acc 68.7500 (66.2500) lr 1.8090e-03 eta 0:53:56
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 68.6%
+epoch [13/50] batch [10/18] time 4.459 (4.669) data 0.007 (0.060) loss 1.0574 (0.9905) loss_cls 1.0574 (0.9905) loss_lap 0.0000 (0.0000) acc 65.6250 (70.0000) lr 1.7705e-03 eta 0:52:27
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+epoch [14/50] batch [10/18] time 3.510 (3.624) data 0.007 (0.055) loss 0.9430 (1.0015) loss_cls 0.9430 (1.0015) loss_lap 0.0000 (0.0000) acc 71.8750 (69.6875) lr 1.7290e-03 eta 0:39:37
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.5%
+epoch [15/50] batch [10/18] time 4.338 (3.677) data 0.008 (0.063) loss 1.0267 (0.8020) loss_cls 1.0267 (0.8020) loss_lap 0.0000 (0.0000) acc 71.8750 (75.6250) lr 1.6845e-03 eta 0:39:05
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.0%
+epoch [16/50] batch [10/18] time 4.367 (4.375) data 0.007 (0.061) loss 0.9089 (0.8523) loss_cls 0.9089 (0.8523) loss_lap 0.0000 (0.0000) acc 65.6250 (73.1250) lr 1.6374e-03 eta 0:45:12
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 69.2%
+epoch [17/50] batch [10/18] time 4.438 (4.596) data 0.008 (0.058) loss 0.8879 (0.8699) loss_cls 0.8879 (0.8699) loss_lap 0.0000 (0.0000) acc 68.7500 (72.5000) lr 1.5878e-03 eta 0:46:06
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 69.5%
+epoch [18/50] batch [10/18] time 4.433 (4.609) data 0.007 (0.061) loss 0.7127 (0.8488) loss_cls 0.7127 (0.8488) loss_lap 0.0000 (0.0000) acc 75.0000 (74.0625) lr 1.5358e-03 eta 0:44:51
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 70.4%
+epoch [19/50] batch [10/18] time 3.649 (4.493) data 0.007 (0.055) loss 0.6969 (0.8047) loss_cls 0.6969 (0.8047) loss_lap 0.0000 (0.0000) acc 78.1250 (75.3125) lr 1.4818e-03 eta 0:42:23
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.4%
+epoch [20/50] batch [10/18] time 4.507 (4.596) data 0.011 (0.060) loss 0.6062 (0.7414) loss_cls 0.6062 (0.7414) loss_lap 0.0000 (0.0000) acc 81.2500 (75.6250) lr 1.4258e-03 eta 0:41:58
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.9%
+epoch [21/50] batch [10/18] time 4.490 (4.469) data 0.007 (0.059) loss 0.5151 (0.6670) loss_cls 0.5151 (0.6670) loss_lap 0.0000 (0.0000) acc 87.5000 (80.0000) lr 1.3681e-03 eta 0:39:28
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 66.1%
+epoch [22/50] batch [10/18] time 3.645 (3.978) data 0.008 (0.055) loss 0.7244 (0.7421) loss_cls 0.7244 (0.7421) loss_lap 0.0000 (0.0000) acc 68.7500 (77.5000) lr 1.3090e-03 eta 0:33:56
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 68.1%
+epoch [23/50] batch [10/18] time 4.384 (4.579) data 0.007 (0.062) loss 0.9542 (0.6983) loss_cls 0.9542 (0.6983) loss_lap 0.0000 (0.0000) acc 75.0000 (78.1250) lr 1.2487e-03 eta 0:37:42
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 68.0%
+epoch [24/50] batch [10/18] time 4.494 (4.665) data 0.007 (0.058) loss 0.5479 (0.6602) loss_cls 0.5479 (0.6602) loss_lap 0.0000 (0.0000) acc 87.5000 (79.0625) lr 1.1874e-03 eta 0:37:00
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.5%
+epoch [25/50] batch [10/18] time 4.647 (4.749) data 0.008 (0.059) loss 0.6636 (0.6038) loss_cls 0.6636 (0.6038) loss_lap 0.0000 (0.0000) acc 81.2500 (80.6250) lr 1.1253e-03 eta 0:36:14
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.6%
+epoch [26/50] batch [10/18] time 4.492 (4.591) data 0.007 (0.060) loss 0.4828 (0.5959) loss_cls 0.4828 (0.5959) loss_lap 0.0000 (0.0000) acc 87.5000 (81.2500) lr 1.0628e-03 eta 0:33:40
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 67.5%
+epoch [27/50] batch [10/18] time 4.577 (4.385) data 0.008 (0.061) loss 0.6306 (0.7136) loss_cls 0.6306 (0.7136) loss_lap 0.0000 (0.0000) acc 78.1250 (78.4375) lr 1.0000e-03 eta 0:30:50
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.7%
+epoch [28/50] batch [10/18] time 4.402 (4.587) data 0.007 (0.060) loss 0.6596 (0.5645) loss_cls 0.6596 (0.5645) loss_lap 0.0000 (0.0000) acc 78.1250 (84.0625) lr 9.3721e-04 eta 0:30:53
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 70.2%
+epoch [29/50] batch [10/18] time 4.497 (4.642) data 0.008 (0.067) loss 0.5966 (0.6036) loss_cls 0.5966 (0.6036) loss_lap 0.0000 (0.0000) acc 84.3750 (82.5000) lr 8.7467e-04 eta 0:29:51
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.5%
+epoch [30/50] batch [10/18] time 4.650 (4.687) data 0.016 (0.060) loss 0.5247 (0.5766) loss_cls 0.5247 (0.5766) loss_lap 0.0000 (0.0000) acc 87.5000 (84.3750) lr 8.1262e-04 eta 0:28:44
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.6%
+epoch [31/50] batch [10/18] time 4.529 (4.689) data 0.007 (0.059) loss 0.6356 (0.6124) loss_cls 0.6356 (0.6124) loss_lap 0.0000 (0.0000) acc 78.1250 (80.3125) lr 7.5131e-04 eta 0:27:21
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+epoch [32/50] batch [10/18] time 4.418 (4.593) data 0.007 (0.059) loss 0.6012 (0.5762) loss_cls 0.6012 (0.5762) loss_lap 0.0000 (0.0000) acc 84.3750 (84.6875) lr 6.9098e-04 eta 0:25:24
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 69.8%
+epoch [33/50] batch [10/18] time 4.161 (4.125) data 0.007 (0.060) loss 0.5646 (0.5538) loss_cls 0.5646 (0.5538) loss_lap 0.0000 (0.0000) acc 84.3750 (84.0625) lr 6.3188e-04 eta 0:21:35
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.7%
+epoch [34/50] batch [10/18] time 3.571 (4.145) data 0.007 (0.060) loss 0.6950 (0.6325) loss_cls 0.6950 (0.6325) loss_lap 0.0000 (0.0000) acc 84.3750 (83.7500) lr 5.7422e-04 eta 0:20:26
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.2%
+epoch [35/50] batch [10/18] time 3.515 (3.636) data 0.008 (0.057) loss 0.3648 (0.5086) loss_cls 0.3648 (0.5086) loss_lap 0.0000 (0.0000) acc 87.5000 (86.5625) lr 5.1825e-04 eta 0:16:50
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.8%
+epoch [36/50] batch [10/18] time 3.509 (4.271) data 0.007 (0.070) loss 0.4590 (0.5430) loss_cls 0.4590 (0.5430) loss_lap 0.0000 (0.0000) acc 90.6250 (85.3125) lr 4.6417e-04 eta 0:18:30
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.4%
+epoch [37/50] batch [10/18] time 3.502 (3.633) data 0.008 (0.061) loss 0.6606 (0.5287) loss_cls 0.6606 (0.5287) loss_lap 0.0000 (0.0000) acc 81.2500 (84.3750) lr 4.1221e-04 eta 0:14:39
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 64.1%
+epoch [38/50] batch [10/18] time 3.526 (3.736) data 0.007 (0.057) loss 0.5526 (0.5211) loss_cls 0.5526 (0.5211) loss_lap 0.0000 (0.0000) acc 81.2500 (83.7500) lr 3.6258e-04 eta 0:13:56
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.0%
+epoch [39/50] batch [10/18] time 3.402 (3.577) data 0.007 (0.058) loss 0.3903 (0.4768) loss_cls 0.3903 (0.4768) loss_lap 0.0000 (0.0000) acc 96.8750 (85.6250) lr 3.1545e-04 eta 0:12:16
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 64.1%
+epoch [40/50] batch [10/18] time 3.617 (3.593) data 0.007 (0.059) loss 0.4506 (0.4374) loss_cls 0.4506 (0.4374) loss_lap 0.0000 (0.0000) acc 90.6250 (89.0625) lr 2.7103e-04 eta 0:11:15
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 66.1%
+epoch [41/50] batch [10/18] time 4.352 (4.386) data 0.007 (0.068) loss 0.4069 (0.4968) loss_cls 0.4069 (0.4968) loss_lap 0.0000 (0.0000) acc 96.8750 (85.6250) lr 2.2949e-04 eta 0:12:25
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.7%
+epoch [42/50] batch [10/18] time 3.446 (4.092) data 0.007 (0.058) loss 0.3831 (0.4081) loss_cls 0.3831 (0.4081) loss_lap 0.0000 (0.0000) acc 93.7500 (91.8750) lr 1.9098e-04 eta 0:10:22
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.1%
+epoch [43/50] batch [10/18] time 4.404 (4.538) data 0.008 (0.053) loss 0.4142 (0.3970) loss_cls 0.4142 (0.3970) loss_lap 0.0000 (0.0000) acc 90.6250 (90.3125) lr 1.5567e-04 eta 0:10:08
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.6%
+epoch [44/50] batch [10/18] time 3.482 (3.676) data 0.007 (0.058) loss 0.5418 (0.4467) loss_cls 0.5418 (0.4467) loss_lap 0.0000 (0.0000) acc 84.3750 (88.4375) lr 1.2369e-04 eta 0:07:06
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.1%
+epoch [45/50] batch [10/18] time 3.559 (3.644) data 0.008 (0.069) loss 0.2968 (0.4392) loss_cls 0.2968 (0.4392) loss_lap 0.0000 (0.0000) acc 96.8750 (90.9375) lr 9.5173e-05 eta 0:05:57
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.0%
+epoch [46/50] batch [10/18] time 3.383 (4.171) data 0.008 (0.062) loss 0.3424 (0.4184) loss_cls 0.3424 (0.4184) loss_lap 0.0000 (0.0000) acc 90.6250 (90.6250) lr 7.0224e-05 eta 0:05:33
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.9%
+epoch [47/50] batch [10/18] time 4.481 (4.418) data 0.007 (0.064) loss 0.6649 (0.4467) loss_cls 0.6649 (0.4467) loss_lap 0.0000 (0.0000) acc 81.2500 (85.9375) lr 4.8943e-05 eta 0:04:33
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.0%
+epoch [48/50] batch [10/18] time 3.550 (4.241) data 0.008 (0.062) loss 0.3143 (0.3973) loss_cls 0.3143 (0.3973) loss_lap 0.0000 (0.0000) acc 93.7500 (90.3125) lr 3.1417e-05 eta 0:03:06
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.1%
+epoch [49/50] batch [10/18] time 4.612 (4.701) data 0.007 (0.059) loss 0.3858 (0.4510) loss_cls 0.3858 (0.4510) loss_lap 0.0000 (0.0000) acc 90.6250 (88.1250) lr 1.7713e-05 eta 0:02:02
+Evaluate on the *val* set
+=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.9%
+epoch [50/50] batch [10/18] time 4.424 (4.611) data 0.009 (0.062) loss 0.3371 (0.4020) loss_cls 0.3371 (0.4020) loss_lap 0.0000 (0.0000) acc 96.8750 (91.2500) lr 7.8853e-06 eta 0:00:36
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+=> result
+* total: 3,669
+* correct: 2,257
+* accuracy: 61.5%
+* error: 38.5%
+* macro_f1: 61.0%
+Elapsed: 1:21:30

@@ -1,0 +1,49 @@
+# configs/trainers/GraphCoOp/rn50_ep200.yaml
+#
+# PLACEMENT: Save as  CoOp/configs/trainers/GraphCoOp/rn50_ep200.yaml
+#
+# Run example (16-shot, Caltech101, seed 1):
+#   python train.py \
+#     --root $DATA \
+#     --trainer GraphCoOp \
+#     --dataset-config-file configs/datasets/caltech101.yaml \
+#     --config-file configs/trainers/GraphCoOp/rn50_ep200.yaml \
+#     --output-dir output/caltech101/GraphCoOp/rn50_16shots/seed1 \
+#     DATASET.NUM_SHOTS 16 \
+#     SEED 1
+
+TRAINER:
+  NAME: GraphCoOp
+
+  GRAPHCOOP:
+    N_CTX: 16
+    CTX_INIT: ""
+    CSC: False
+    CLASS_TOKEN_POSITION: "end"
+    PREC: "fp16"
+    THRESHOLD: 0.3
+    USE_LAP: True
+    LAMBDA_LAP: 0.01
+    USE_GLS: True
+    ALPHA: 0.1
+    USE_GCN: True
+    GCN_HIDDEN: 256
+    USE_GCD: False
+    N_PROTO: 8
+    GAMMA_DIFF: 1.0
+
+DATASET:
+  SUBSAMPLE_CLASSES: all
+
+OPTIM:
+  NAME: sgd
+  LR: 0.002
+  MAX_EPOCH: 200
+  LR_SCHEDULER: cosine
+  WARMUP_EPOCH: 1
+  WARMUP_TYPE: constant
+  WARMUP_CONS_LR: 1e-5
+
+MODEL:
+  BACKBONE:
+    NAME: RN50

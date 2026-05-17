@@ -1,0 +1,278 @@
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/GraphCoOp/rn50_ep200.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '1', 'SEED', '1', 'OPTIM.MAX_EPOCH', '2', 'TRAINER.GRAPHCOOP.PREC', 'fp32', 'TRAINER.GRAPHCOOP.USE_GLS', 'False', 'TRAINER.GRAPHCOOP.USE_LAP', 'False', 'TRAINER.GRAPHCOOP.USE_GCN', 'False']
+output_dir: output/smoke_test
+resume: 
+root: /home/f20220580/data
+seed: -1
+source_domains: None
+target_domains: None
+trainer: GraphCoOp
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 4
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 32
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 1
+  ROOT: /home/f20220580/data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: all
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bilinear
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ()
+MODEL:
+  BACKBONE:
+    NAME: 
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 2
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/smoke_test
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 10
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  GRAPHCOOP:
+    ALPHA: 0.1
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    GAMMA_DIFF: 1.0
+    GCN_HIDDEN: 256
+    LAMBDA_LAP: 0.01
+    N_CTX: 16
+    N_PROTO: 8
+    PREC: fp32
+    THRESHOLD: 0.3
+    USE_GCD: False
+    USE_GCN: False
+    USE_GLS: False
+    USE_LAP: False
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: GraphCoOp
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 1.12.1
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.4 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.31
+
+Python version: 3.8.20 (default, Oct  3 2024, 15:24:27)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.4.0-216-generic-x86_64-with-glibc2.17
+Is CUDA available: False
+CUDA runtime version: 10.1.243
+GPU models and configuration: 
+GPU 0: Tesla M10
+GPU 1: Tesla M10
+GPU 2: Tesla M10
+GPU 3: Tesla M10
+
+Nvidia driver version: 535.230.02
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.24.2
+[pip3] torch==1.12.1
+[pip3] torchmetrics==0.11.4
+[pip3] torchvision==0.13.1
+[conda] blas                       1.0              mkl
+[conda] cudatoolkit                11.3.1           h2bc3f7f_2
+[conda] mkl                        2023.1.0         h213fc3f_46344
+[conda] mkl-service                2.4.0            py38h5eee18b_1
+[conda] mkl_fft                    1.3.8            py38h5eee18b_0
+[conda] mkl_random                 1.2.4            py38hdb19cb5_0
+[conda] numpy                      1.24.3           py38hf6e8229_1
+[conda] numpy-base                 1.24.3           py38h060ed82_1
+[conda] pytorch                    1.12.1           py3.8_cuda11.3_cudnn8.3.2_0  pytorch
+[conda] pytorch-mutex              1.0              cuda                         pytorch
+[conda] torchvision                0.13.1           py38_cu113                   pytorch
+        Pillow (10.4.0)
+
+Loading trainer: GraphCoOp
+Loading dataset: OxfordPets
+Reading split from /home/f20220580/data/oxford_pets/split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from /home/f20220580/data/oxford_pets/split_fewshot/shot_1-seed_1.pkl
+Building transform_train
++ resize to 224x224
++ to torch tensor of range [0, 1]
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
+---------  ----------
+Dataset    OxfordPets
+# classes  37
+# train_x  37
+# val      37
+# test     3,669
+---------  ----------
+Loading CLIP (backbone: )

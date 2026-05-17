@@ -1,0 +1,1488 @@
+nohup: ignoring input
+Setting fixed seed: 1
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/GraphCoOp/rn50_ep200.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '16', 'SEED', '1', 'MODEL.BACKBONE.NAME', 'RN50', 'OPTIM.MAX_EPOCH', '50', 'TRAINER.GRAPHCOOP.PREC', 'fp32', 'TRAINER.GRAPHCOOP.USE_GLS', 'False', 'TRAINER.GRAPHCOOP.USE_LAP', 'False', 'TRAINER.GRAPHCOOP.USE_GCN', 'False', 'TRAINER.GRAPHCOOP.USE_GCD', 'True']
+output_dir: output/oxford_pets/GCD/seed1
+resume: 
+root: /home/f20220580/data
+seed: -1
+source_domains: None
+target_domains: None
+trainer: GraphCoOp
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 4
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 32
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /home/f20220580/data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: all
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bilinear
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ()
+MODEL:
+  BACKBONE:
+    NAME: RN50
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 50
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/oxford_pets/GCD/seed1
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 10
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  GRAPHCOOP:
+    ALPHA: 0.1
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    GAMMA_DIFF: 1.0
+    GCN_HIDDEN: 256
+    LAMBDA_LAP: 0.01
+    N_CTX: 16
+    N_PROTO: 8
+    PREC: fp32
+    THRESHOLD: 0.3
+    USE_GCD: True
+    USE_GCN: False
+    USE_GLS: False
+    USE_LAP: False
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: GraphCoOp
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 1.12.1
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.4 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.31
+
+Python version: 3.8.20 (default, Oct  3 2024, 15:24:27)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.4.0-216-generic-x86_64-with-glibc2.17
+Is CUDA available: False
+CUDA runtime version: 10.1.243
+GPU models and configuration: 
+GPU 0: Tesla M10
+GPU 1: Tesla M10
+GPU 2: Tesla M10
+GPU 3: Tesla M10
+
+Nvidia driver version: 535.230.02
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.24.2
+[pip3] torch==1.12.1
+[pip3] torchmetrics==0.11.4
+[pip3] torchvision==0.13.1
+[conda] blas                       1.0              mkl
+[conda] cudatoolkit                11.3.1           h2bc3f7f_2
+[conda] mkl                        2023.1.0         h213fc3f_46344
+[conda] mkl-service                2.4.0            py38h5eee18b_1
+[conda] mkl_fft                    1.3.8            py38h5eee18b_0
+[conda] mkl_random                 1.2.4            py38hdb19cb5_0
+[conda] numpy                      1.24.3           py38hf6e8229_1
+[conda] numpy-base                 1.24.3           py38h060ed82_1
+[conda] pytorch                    1.12.1           py3.8_cuda11.3_cudnn8.3.2_0  pytorch
+[conda] pytorch-mutex              1.0              cuda                         pytorch
+[conda] torchvision                0.13.1           py38_cu113                   pytorch
+        Pillow (10.4.0)
+
+Loading trainer: GraphCoOp
+Loading dataset: OxfordPets
+Reading split from /home/f20220580/data/oxford_pets/split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from /home/f20220580/data/oxford_pets/split_fewshot/shot_16-seed_1.pkl
+Building transform_train
++ resize to 224x224
++ to torch tensor of range [0, 1]
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
+---------  ----------
+Dataset    OxfordPets
+# classes  37
+# train_x  592
+# val      148
+# test     3,669
+---------  ----------
+Loading CLIP (backbone: RN50)
+Building semantic class graph from CLIP text embeddings ...
+GCD: built diffusion matrix Phi (gamma=1.0, K=37, R=8)
+Building custom CLIP with graph modifications ...
+Turning off gradients in CLIP ...
+Trainable parameters: 74,024
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+Initialize tensorboard (log_dir=output/oxford_pets/GCD/seed1/tensorboard)
+/home/f20220580/GCD/CoOp/clip/clip.py:23: UserWarning: PyTorch version 1.7.1 or higher is recommended
+  warnings.warn("PyTorch version 1.7.1 or higher is recommended")
+/home/f20220580/.miniconda/envs/graphcoop/lib/python3.8/site-packages/torch/cuda/__init__.py:83: UserWarning: CUDA initialization: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 205: mapping of buffer object failed (Triggered internally at  /opt/conda/conda-bld/pytorch_1659484810403/work/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+epoch [1/50] batch [10/18] time 4.522 (4.797) data 0.009 (0.058) loss 2.0662 (2.5205) loss_cls 2.0662 (2.5205) loss_lap 0.0000 (0.0000) acc 43.7500 (29.0625) lr 1.0000e-05 eta 1:11:09
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:04<00:16,  4.19s/it] 40%|████      | 2/5 [00:07<00:10,  3.53s/it] 60%|██████    | 3/5 [00:10<00:06,  3.34s/it] 80%|████████  | 4/5 [00:13<00:03,  3.23s/it]100%|██████████| 5/5 [00:15<00:00,  2.98s/it]100%|██████████| 5/5 [00:16<00:00,  3.22s/it]=> result
+* total: 148
+* correct: 61
+* accuracy: 41.2%
+* error: 58.8%
+* macro_f1: 36.7%
+
+epoch [2/50] batch [10/18] time 4.448 (4.449) data 0.007 (0.060) loss 2.2706 (1.8834) loss_cls 2.2706 (1.8834) loss_lap 0.0000 (0.0000) acc 34.3750 (44.3750) lr 2.0000e-03 eta 1:04:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.99s/it] 40%|████      | 2/5 [00:07<00:10,  3.44s/it] 60%|██████    | 3/5 [00:10<00:06,  3.27s/it] 80%|████████  | 4/5 [00:13<00:03,  3.18s/it]100%|██████████| 5/5 [00:15<00:00,  2.91s/it]100%|██████████| 5/5 [00:15<00:00,  3.14s/it]=> result
+* total: 148
+* correct: 88
+* accuracy: 59.5%
+* error: 40.5%
+* macro_f1: 58.2%
+
+epoch [3/50] batch [10/18] time 4.465 (4.609) data 0.008 (0.059) loss 1.8552 (1.6280) loss_cls 1.8552 (1.6280) loss_lap 0.0000 (0.0000) acc 40.6250 (50.3125) lr 1.9980e-03 eta 1:05:36
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:04<00:16,  4.12s/it] 40%|████      | 2/5 [00:07<00:10,  3.51s/it] 60%|██████    | 3/5 [00:10<00:06,  3.29s/it] 80%|████████  | 4/5 [00:13<00:03,  3.20s/it]100%|██████████| 5/5 [00:15<00:00,  2.90s/it]100%|██████████| 5/5 [00:15<00:00,  3.16s/it]=> result
+* total: 148
+* correct: 91
+* accuracy: 61.5%
+* error: 38.5%
+* macro_f1: 60.8%
+
+epoch [4/50] batch [10/18] time 4.651 (4.716) data 0.007 (0.059) loss 1.3390 (1.5779) loss_cls 1.3390 (1.5779) loss_lap 0.0000 (0.0000) acc 59.3750 (52.1875) lr 1.9921e-03 eta 1:05:42
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.99s/it] 40%|████      | 2/5 [00:07<00:10,  3.43s/it] 60%|██████    | 3/5 [00:10<00:06,  3.24s/it] 80%|████████  | 4/5 [00:13<00:03,  3.16s/it]100%|██████████| 5/5 [00:15<00:00,  2.88s/it]100%|██████████| 5/5 [00:15<00:00,  3.12s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 62.1%
+
+epoch [5/50] batch [10/18] time 4.751 (4.842) data 0.007 (0.065) loss 1.4724 (1.4646) loss_cls 1.4724 (1.4646) loss_lap 0.0000 (0.0000) acc 56.2500 (54.0625) lr 1.9823e-03 eta 1:06:01
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:13,  3.44s/it] 40%|████      | 2/5 [00:05<00:08,  2.79s/it] 60%|██████    | 3/5 [00:08<00:05,  2.57s/it] 80%|████████  | 4/5 [00:10<00:02,  2.47s/it]100%|██████████| 5/5 [00:12<00:00,  2.25s/it]100%|██████████| 5/5 [00:12<00:00,  2.48s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 67.8%
+
+epoch [6/50] batch [10/18] time 4.720 (4.886) data 0.007 (0.058) loss 1.3054 (1.2750) loss_cls 1.3054 (1.2750) loss_lap 0.0000 (0.0000) acc 50.0000 (61.5625) lr 1.9686e-03 eta 1:05:08
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:14,  3.67s/it] 40%|████      | 2/5 [00:06<00:08,  2.90s/it] 60%|██████    | 3/5 [00:08<00:05,  2.64s/it] 80%|████████  | 4/5 [00:10<00:02,  2.52s/it]100%|██████████| 5/5 [00:12<00:00,  2.27s/it]100%|██████████| 5/5 [00:12<00:00,  2.53s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.1%
+
+epoch [7/50] batch [10/18] time 4.622 (4.690) data 0.007 (0.058) loss 1.2925 (1.2416) loss_cls 1.2925 (1.2416) loss_lap 0.0000 (0.0000) acc 59.3750 (60.0000) lr 1.9511e-03 eta 1:01:07
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:04<00:16,  4.06s/it] 40%|████      | 2/5 [00:06<00:09,  3.08s/it] 60%|██████    | 3/5 [00:08<00:05,  2.76s/it] 80%|████████  | 4/5 [00:11<00:02,  2.61s/it]100%|██████████| 5/5 [00:13<00:00,  2.38s/it]100%|██████████| 5/5 [00:13<00:00,  2.66s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.3%
+
+epoch [8/50] batch [10/18] time 3.956 (4.656) data 0.008 (0.060) loss 1.2893 (1.1372) loss_cls 1.2893 (1.1372) loss_lap 0.0000 (0.0000) acc 59.3750 (63.4375) lr 1.9298e-03 eta 0:59:17
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.96s/it] 40%|████      | 2/5 [00:06<00:10,  3.36s/it] 60%|██████    | 3/5 [00:09<00:06,  3.15s/it] 80%|████████  | 4/5 [00:12<00:03,  3.05s/it]100%|██████████| 5/5 [00:15<00:00,  2.80s/it]100%|██████████| 5/5 [00:15<00:00,  3.03s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.2%
+
+epoch [9/50] batch [10/18] time 3.786 (4.276) data 0.008 (0.053) loss 1.7494 (1.1211) loss_cls 1.7494 (1.1211) loss_lap 0.0000 (0.0000) acc 43.7500 (64.3750) lr 1.9048e-03 eta 0:53:09
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:04<00:16,  4.04s/it] 40%|████      | 2/5 [00:07<00:10,  3.47s/it] 60%|██████    | 3/5 [00:10<00:06,  3.30s/it] 80%|████████  | 4/5 [00:13<00:03,  3.18s/it]100%|██████████| 5/5 [00:15<00:00,  2.89s/it]100%|██████████| 5/5 [00:15<00:00,  3.14s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 63.1%
+
+epoch [10/50] batch [10/18] time 4.548 (4.615) data 0.008 (0.057) loss 0.8962 (1.0771) loss_cls 0.8962 (1.0771) loss_lap 0.0000 (0.0000) acc 75.0000 (64.0625) lr 1.8763e-03 eta 0:55:59
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.96s/it] 40%|████      | 2/5 [00:06<00:10,  3.35s/it] 60%|██████    | 3/5 [00:09<00:06,  3.15s/it] 80%|████████  | 4/5 [00:12<00:03,  3.05s/it]100%|██████████| 5/5 [00:15<00:00,  2.82s/it]100%|██████████| 5/5 [00:15<00:00,  3.04s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+
+epoch [11/50] batch [10/18] time 4.673 (4.841) data 0.007 (0.060) loss 0.9844 (1.0318) loss_cls 0.9844 (1.0318) loss_lap 0.0000 (0.0000) acc 71.8750 (67.8125) lr 1.8443e-03 eta 0:57:17
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.95s/it] 40%|████      | 2/5 [00:06<00:10,  3.35s/it] 60%|██████    | 3/5 [00:09<00:06,  3.16s/it] 80%|████████  | 4/5 [00:12<00:03,  3.07s/it]100%|██████████| 5/5 [00:15<00:00,  2.83s/it]100%|██████████| 5/5 [00:15<00:00,  3.05s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 64.0%
+
+epoch [12/50] batch [10/18] time 4.597 (4.752) data 0.006 (0.059) loss 0.9899 (1.0611) loss_cls 0.9899 (1.0611) loss_lap 0.0000 (0.0000) acc 68.7500 (66.2500) lr 1.8090e-03 eta 0:54:48
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:04<00:16,  4.01s/it] 40%|████      | 2/5 [00:06<00:10,  3.38s/it] 60%|██████    | 3/5 [00:09<00:06,  3.17s/it] 80%|████████  | 4/5 [00:12<00:03,  3.08s/it]100%|██████████| 5/5 [00:15<00:00,  2.83s/it]100%|██████████| 5/5 [00:15<00:00,  3.06s/it]=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 68.6%
+
+epoch [13/50] batch [10/18] time 4.391 (4.512) data 0.008 (0.058) loss 1.0574 (0.9905) loss_cls 1.0574 (0.9905) loss_lap 0.0000 (0.0000) acc 65.6250 (70.0000) lr 1.7705e-03 eta 0:50:41
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.94s/it] 40%|████      | 2/5 [00:06<00:10,  3.34s/it] 60%|██████    | 3/5 [00:09<00:06,  3.15s/it] 80%|████████  | 4/5 [00:12<00:03,  3.05s/it]100%|██████████| 5/5 [00:15<00:00,  2.82s/it]100%|██████████| 5/5 [00:15<00:00,  3.04s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+
+epoch [14/50] batch [10/18] time 4.523 (4.728) data 0.008 (0.060) loss 0.9430 (1.0015) loss_cls 0.9430 (1.0015) loss_lap 0.0000 (0.0000) acc 71.8750 (69.6875) lr 1.7290e-03 eta 0:51:41
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.91s/it] 40%|████      | 2/5 [00:06<00:10,  3.34s/it] 60%|██████    | 3/5 [00:09<00:06,  3.14s/it] 80%|████████  | 4/5 [00:12<00:03,  3.05s/it]100%|██████████| 5/5 [00:15<00:00,  2.81s/it]100%|██████████| 5/5 [00:15<00:00,  3.04s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.5%
+
+epoch [15/50] batch [10/18] time 4.512 (4.531) data 0.011 (0.056) loss 1.0267 (0.8020) loss_cls 1.0267 (0.8020) loss_lap 0.0000 (0.0000) acc 71.8750 (75.6250) lr 1.6845e-03 eta 0:48:10
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.99s/it] 40%|████      | 2/5 [00:07<00:10,  3.43s/it] 60%|██████    | 3/5 [00:09<00:06,  3.07s/it] 80%|████████  | 4/5 [00:12<00:02,  2.80s/it]100%|██████████| 5/5 [00:13<00:00,  2.47s/it]100%|██████████| 5/5 [00:14<00:00,  2.81s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.0%
+
+epoch [16/50] batch [10/18] time 4.462 (4.380) data 0.008 (0.065) loss 0.9089 (0.8523) loss_cls 0.9089 (0.8523) loss_lap 0.0000 (0.0000) acc 65.6250 (73.1250) lr 1.6374e-03 eta 0:45:15
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:03<00:15,  3.96s/it] 40%|████      | 2/5 [00:06<00:10,  3.39s/it] 60%|██████    | 3/5 [00:09<00:06,  3.19s/it] 80%|████████  | 4/5 [00:12<00:03,  3.10s/it]100%|██████████| 5/5 [00:15<00:00,  2.84s/it]100%|██████████| 5/5 [00:15<00:00,  3.07s/it]=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 69.2%
+
+epoch [17/50] batch [10/18] time 3.733 (3.925) data 0.008 (0.060) loss 0.8879 (0.8699) loss_cls 0.8879 (0.8699) loss_lap 0.0000 (0.0000) acc 68.7500 (72.5000) lr 1.5878e-03 eta 0:39:23
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.52s/it] 40%|████      | 2/5 [00:09<00:13,  4.52s/it] 60%|██████    | 3/5 [00:13<00:08,  4.35s/it] 80%|████████  | 4/5 [00:17<00:04,  4.10s/it]100%|██████████| 5/5 [00:20<00:00,  3.66s/it]100%|██████████| 5/5 [00:20<00:00,  4.05s/it]=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 69.5%
+
+epoch [18/50] batch [10/18] time 7.681 (9.114) data 0.008 (0.078) loss 0.7127 (0.8488) loss_cls 0.7127 (0.8488) loss_lap 0.0000 (0.0000) acc 75.0000 (74.0625) lr 1.5358e-03 eta 1:28:42
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.96s/it] 40%|████      | 2/5 [00:11<00:16,  5.57s/it] 60%|██████    | 3/5 [00:15<00:09,  4.79s/it] 80%|████████  | 4/5 [00:19<00:04,  4.45s/it]100%|██████████| 5/5 [00:22<00:00,  3.93s/it]100%|██████████| 5/5 [00:22<00:00,  4.57s/it]=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 70.4%
+
+epoch [19/50] batch [10/18] time 6.139 (8.048) data 0.008 (0.075) loss 0.6969 (0.8047) loss_cls 0.6969 (0.8047) loss_lap 0.0000 (0.0000) acc 78.1250 (75.3125) lr 1.4818e-03 eta 1:15:55
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:21,  5.26s/it] 40%|████      | 2/5 [00:09<00:14,  4.84s/it] 60%|██████    | 3/5 [00:13<00:08,  4.39s/it] 80%|████████  | 4/5 [00:17<00:04,  4.20s/it]100%|██████████| 5/5 [00:20<00:00,  3.75s/it]100%|██████████| 5/5 [00:20<00:00,  4.13s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.4%
+
+epoch [20/50] batch [10/18] time 6.549 (7.875) data 0.008 (0.076) loss 0.6062 (0.7414) loss_cls 0.6062 (0.7414) loss_lap 0.0000 (0.0000) acc 81.2500 (75.6250) lr 1.4258e-03 eta 1:11:55
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.14s/it] 40%|████      | 2/5 [00:09<00:14,  4.79s/it] 60%|██████    | 3/5 [00:13<00:08,  4.34s/it] 80%|████████  | 4/5 [00:17<00:04,  4.12s/it]100%|██████████| 5/5 [00:20<00:00,  3.70s/it]100%|██████████| 5/5 [00:20<00:00,  4.13s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.9%
+
+epoch [21/50] batch [10/18] time 6.862 (7.268) data 0.008 (0.078) loss 0.5151 (0.6670) loss_cls 0.5151 (0.6670) loss_lap 0.0000 (0.0000) acc 87.5000 (80.0000) lr 1.3681e-03 eta 1:04:12
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.21s/it] 40%|████      | 2/5 [00:10<00:14,  4.83s/it] 60%|██████    | 3/5 [00:13<00:08,  4.35s/it] 80%|████████  | 4/5 [00:18<00:04,  4.45s/it]100%|██████████| 5/5 [00:21<00:00,  3.92s/it]100%|██████████| 5/5 [00:21<00:00,  4.31s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 66.1%
+
+epoch [22/50] batch [10/18] time 5.704 (7.453) data 0.008 (0.085) loss 0.7244 (0.7421) loss_cls 0.7244 (0.7421) loss_lap 0.0000 (0.0000) acc 68.7500 (77.5000) lr 1.3090e-03 eta 1:03:35
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:27,  6.99s/it] 40%|████      | 2/5 [00:10<00:15,  5.16s/it] 60%|██████    | 3/5 [00:14<00:09,  4.60s/it] 80%|████████  | 4/5 [00:18<00:04,  4.35s/it]100%|██████████| 5/5 [00:21<00:00,  3.83s/it]100%|██████████| 5/5 [00:21<00:00,  4.36s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 68.1%
+
+epoch [23/50] batch [10/18] time 7.585 (7.528) data 0.008 (0.071) loss 0.9542 (0.6983) loss_cls 0.9542 (0.6983) loss_lap 0.0000 (0.0000) acc 75.0000 (78.1250) lr 1.2487e-03 eta 1:01:59
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:20,  5.20s/it] 40%|████      | 2/5 [00:10<00:15,  5.00s/it] 60%|██████    | 3/5 [00:14<00:09,  4.59s/it] 80%|████████  | 4/5 [00:18<00:04,  4.33s/it]100%|██████████| 5/5 [00:21<00:00,  3.88s/it]100%|██████████| 5/5 [00:21<00:00,  4.26s/it]=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 68.0%
+
+epoch [24/50] batch [10/18] time 6.777 (7.951) data 0.009 (0.069) loss 0.5479 (0.6602) loss_cls 0.5479 (0.6602) loss_lap 0.0000 (0.0000) acc 87.5000 (79.0625) lr 1.1874e-03 eta 1:03:04
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:27,  6.92s/it] 40%|████      | 2/5 [00:10<00:15,  5.10s/it] 60%|██████    | 3/5 [00:14<00:09,  4.56s/it] 80%|████████  | 4/5 [00:18<00:04,  4.33s/it]100%|██████████| 5/5 [00:21<00:00,  3.82s/it]100%|██████████| 5/5 [00:21<00:00,  4.34s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.5%
+
+epoch [25/50] batch [10/18] time 5.553 (7.177) data 0.008 (0.072) loss 0.6636 (0.6038) loss_cls 0.6636 (0.6038) loss_lap 0.0000 (0.0000) acc 81.2500 (80.6250) lr 1.1253e-03 eta 0:54:46
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:26,  6.56s/it] 40%|████      | 2/5 [00:10<00:15,  5.11s/it] 60%|██████    | 3/5 [00:15<00:09,  4.82s/it] 80%|████████  | 4/5 [00:19<00:04,  4.51s/it]100%|██████████| 5/5 [00:22<00:00,  4.00s/it]100%|██████████| 5/5 [00:22<00:00,  4.48s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.6%
+
+epoch [26/50] batch [10/18] time 5.771 (7.178) data 0.008 (0.078) loss 0.4828 (0.5959) loss_cls 0.4828 (0.5959) loss_lap 0.0000 (0.0000) acc 87.5000 (81.2500) lr 1.0628e-03 eta 0:52:38
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:20,  5.05s/it] 40%|████      | 2/5 [00:09<00:13,  4.66s/it] 60%|██████    | 3/5 [00:13<00:08,  4.27s/it] 80%|████████  | 4/5 [00:17<00:04,  4.09s/it]100%|██████████| 5/5 [00:19<00:00,  3.67s/it]100%|██████████| 5/5 [00:20<00:00,  4.02s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 67.5%
+
+epoch [27/50] batch [10/18] time 7.504 (7.416) data 0.008 (0.077) loss 0.6306 (0.7136) loss_cls 0.6306 (0.7136) loss_lap 0.0000 (0.0000) acc 78.1250 (78.4375) lr 1.0000e-03 eta 0:52:09
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.17s/it] 40%|████      | 2/5 [00:10<00:14,  4.85s/it] 60%|██████    | 3/5 [00:14<00:08,  4.48s/it] 80%|████████  | 4/5 [00:18<00:04,  4.27s/it]100%|██████████| 5/5 [00:20<00:00,  3.78s/it]100%|██████████| 5/5 [00:21<00:00,  4.22s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.7%
+
+epoch [28/50] batch [10/18] time 5.958 (7.511) data 0.008 (0.078) loss 0.6596 (0.5645) loss_cls 0.6596 (0.5645) loss_lap 0.0000 (0.0000) acc 78.1250 (84.0625) lr 9.3721e-04 eta 0:50:34
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:32,  8.03s/it] 40%|████      | 2/5 [00:14<00:21,  7.02s/it] 60%|██████    | 3/5 [00:18<00:11,  5.52s/it] 80%|████████  | 4/5 [00:22<00:05,  5.01s/it]100%|██████████| 5/5 [00:25<00:00,  4.32s/it]100%|██████████| 5/5 [00:25<00:00,  5.11s/it]=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 70.2%
+
+epoch [29/50] batch [10/18] time 5.792 (6.786) data 0.008 (0.080) loss 0.5966 (0.6036) loss_cls 0.5966 (0.6036) loss_lap 0.0000 (0.0000) acc 84.3750 (82.5000) lr 8.7467e-04 eta 0:43:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.14s/it] 40%|████      | 2/5 [00:10<00:14,  4.82s/it] 60%|██████    | 3/5 [00:13<00:08,  4.36s/it] 80%|████████  | 4/5 [00:17<00:04,  4.14s/it]100%|██████████| 5/5 [00:20<00:00,  3.69s/it]100%|██████████| 5/5 [00:20<00:00,  4.13s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.5%
+
+epoch [30/50] batch [10/18] time 5.492 (7.132) data 0.009 (0.068) loss 0.5247 (0.5766) loss_cls 0.5247 (0.5766) loss_lap 0.0000 (0.0000) acc 87.5000 (84.3750) lr 8.1262e-04 eta 0:43:44
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.07s/it] 40%|████      | 2/5 [00:09<00:14,  4.73s/it] 60%|██████    | 3/5 [00:13<00:08,  4.31s/it] 80%|████████  | 4/5 [00:17<00:04,  4.10s/it]100%|██████████| 5/5 [00:20<00:00,  3.67s/it]100%|██████████| 5/5 [00:20<00:00,  4.10s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.6%
+
+epoch [31/50] batch [10/18] time 5.930 (7.695) data 0.015 (0.071) loss 0.6356 (0.6124) loss_cls 0.6356 (0.6124) loss_lap 0.0000 (0.0000) acc 78.1250 (80.3125) lr 7.5131e-04 eta 0:44:53
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.71s/it] 40%|████      | 2/5 [00:09<00:13,  4.60s/it] 60%|██████    | 3/5 [00:13<00:08,  4.24s/it] 80%|████████  | 4/5 [00:17<00:04,  4.09s/it]100%|██████████| 5/5 [00:20<00:00,  3.67s/it]100%|██████████| 5/5 [00:20<00:00,  4.05s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.7%
+
+epoch [32/50] batch [10/18] time 7.211 (7.346) data 0.008 (0.073) loss 0.6012 (0.5762) loss_cls 0.6012 (0.5762) loss_lap 0.0000 (0.0000) acc 84.3750 (84.6875) lr 6.9098e-04 eta 0:40:38
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:28,  7.25s/it] 40%|████      | 2/5 [00:11<00:15,  5.32s/it] 60%|██████    | 3/5 [00:15<00:09,  4.71s/it] 80%|████████  | 4/5 [00:19<00:04,  4.42s/it]100%|██████████| 5/5 [00:22<00:00,  3.89s/it]100%|██████████| 5/5 [00:22<00:00,  4.45s/it]=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 69.8%
+
+epoch [33/50] batch [10/18] time 5.985 (7.448) data 0.008 (0.071) loss 0.5646 (0.5538) loss_cls 0.5646 (0.5538) loss_lap 0.0000 (0.0000) acc 84.3750 (84.0625) lr 6.3188e-04 eta 0:38:58
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:38,  9.72s/it] 40%|████      | 2/5 [00:16<00:23,  7.83s/it] 60%|██████    | 3/5 [00:21<00:13,  6.59s/it] 80%|████████  | 4/5 [00:24<00:05,  5.40s/it]100%|██████████| 5/5 [00:27<00:00,  4.47s/it]100%|██████████| 5/5 [00:27<00:00,  5.57s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.7%
+
+epoch [34/50] batch [10/18] time 5.704 (6.984) data 0.008 (0.071) loss 0.6950 (0.6325) loss_cls 0.6950 (0.6325) loss_lap 0.0000 (0.0000) acc 84.3750 (83.7500) lr 5.7422e-04 eta 0:34:27
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.59s/it] 40%|████      | 2/5 [00:09<00:13,  4.55s/it] 60%|██████    | 3/5 [00:13<00:08,  4.23s/it] 80%|████████  | 4/5 [00:17<00:04,  4.07s/it]100%|██████████| 5/5 [00:19<00:00,  3.65s/it]100%|██████████| 5/5 [00:20<00:00,  4.02s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.2%
+
+epoch [35/50] batch [10/18] time 8.183 (7.316) data 0.008 (0.068) loss 0.3648 (0.5086) loss_cls 0.3648 (0.5086) loss_lap 0.0000 (0.0000) acc 87.5000 (86.5625) lr 5.1825e-04 eta 0:33:53
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:38,  9.74s/it] 40%|████      | 2/5 [00:13<00:19,  6.39s/it] 60%|██████    | 3/5 [00:17<00:10,  5.28s/it] 80%|████████  | 4/5 [00:21<00:04,  4.83s/it]100%|██████████| 5/5 [00:24<00:00,  4.14s/it]100%|██████████| 5/5 [00:24<00:00,  4.98s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.8%
+
+epoch [36/50] batch [10/18] time 6.071 (8.048) data 0.008 (0.076) loss 0.4590 (0.5430) loss_cls 0.4590 (0.5430) loss_lap 0.0000 (0.0000) acc 90.6250 (85.3125) lr 4.6417e-04 eta 0:34:52
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:28,  7.13s/it] 40%|████      | 2/5 [00:11<00:15,  5.29s/it] 60%|██████    | 3/5 [00:15<00:09,  4.73s/it] 80%|████████  | 4/5 [00:19<00:04,  4.43s/it]100%|██████████| 5/5 [00:26<00:00,  5.36s/it]100%|██████████| 5/5 [00:26<00:00,  5.27s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.4%
+
+epoch [37/50] batch [10/18] time 6.297 (7.097) data 0.010 (0.074) loss 0.6606 (0.5287) loss_cls 0.6606 (0.5287) loss_lap 0.0000 (0.0000) acc 81.2500 (84.3750) lr 4.1221e-04 eta 0:28:37
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:28,  7.13s/it] 40%|████      | 2/5 [00:11<00:16,  5.42s/it] 60%|██████    | 3/5 [00:15<00:09,  4.75s/it] 80%|████████  | 4/5 [00:19<00:04,  4.40s/it]100%|██████████| 5/5 [00:22<00:00,  3.87s/it]100%|██████████| 5/5 [00:22<00:00,  4.44s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 64.1%
+
+epoch [38/50] batch [10/18] time 5.579 (6.336) data 0.008 (0.069) loss 0.5526 (0.5211) loss_cls 0.5526 (0.5211) loss_lap 0.0000 (0.0000) acc 81.2500 (83.7500) lr 3.6258e-04 eta 0:23:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:33,  8.45s/it] 40%|████      | 2/5 [00:12<00:16,  5.67s/it] 60%|██████    | 3/5 [00:15<00:09,  4.78s/it] 80%|████████  | 4/5 [00:19<00:04,  4.36s/it]100%|██████████| 5/5 [00:22<00:00,  3.83s/it]100%|██████████| 5/5 [00:22<00:00,  4.52s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.0%
+
+epoch [39/50] batch [10/18] time 7.273 (6.336) data 0.007 (0.067) loss 0.3903 (0.4768) loss_cls 0.3903 (0.4768) loss_lap 0.0000 (0.0000) acc 96.8750 (85.6250) lr 3.1545e-04 eta 0:21:45
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.78s/it] 40%|████      | 2/5 [00:09<00:13,  4.58s/it] 60%|██████    | 3/5 [00:13<00:08,  4.19s/it] 80%|████████  | 4/5 [00:16<00:04,  4.02s/it]100%|██████████| 5/5 [00:19<00:00,  3.60s/it]100%|██████████| 5/5 [00:19<00:00,  3.99s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 64.1%
+
+epoch [40/50] batch [10/18] time 5.709 (7.376) data 0.006 (0.070) loss 0.4506 (0.4374) loss_cls 0.4506 (0.4374) loss_lap 0.0000 (0.0000) acc 90.6250 (89.0625) lr 2.7103e-04 eta 0:23:06
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.92s/it] 40%|████      | 2/5 [00:09<00:13,  4.66s/it] 60%|██████    | 3/5 [00:13<00:08,  4.25s/it] 80%|████████  | 4/5 [00:17<00:04,  4.05s/it]100%|██████████| 5/5 [00:20<00:00,  3.64s/it]100%|██████████| 5/5 [00:20<00:00,  4.05s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 66.1%
+
+epoch [41/50] batch [10/18] time 7.744 (8.121) data 0.008 (0.082) loss 0.4069 (0.4968) loss_cls 0.4069 (0.4968) loss_lap 0.0000 (0.0000) acc 96.8750 (85.6250) lr 2.2949e-04 eta 0:23:00
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.59s/it] 40%|████      | 2/5 [00:09<00:13,  4.47s/it] 60%|██████    | 3/5 [00:12<00:08,  4.11s/it] 80%|████████  | 4/5 [00:16<00:03,  3.94s/it]100%|██████████| 5/5 [00:19<00:00,  3.55s/it]100%|██████████| 5/5 [00:19<00:00,  3.92s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.7%
+
+epoch [42/50] batch [10/18] time 5.843 (7.459) data 0.007 (0.078) loss 0.3831 (0.4081) loss_cls 0.3831 (0.4081) loss_lap 0.0000 (0.0000) acc 93.7500 (91.8750) lr 1.9098e-04 eta 0:18:53
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.85s/it] 40%|████      | 2/5 [00:09<00:14,  4.71s/it] 60%|██████    | 3/5 [00:13<00:08,  4.29s/it] 80%|████████  | 4/5 [00:17<00:04,  4.09s/it]100%|██████████| 5/5 [00:20<00:00,  3.66s/it]100%|██████████| 5/5 [00:20<00:00,  4.07s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.1%
+
+epoch [43/50] batch [10/18] time 6.790 (7.106) data 0.021 (0.071) loss 0.4142 (0.3970) loss_cls 0.4142 (0.3970) loss_lap 0.0000 (0.0000) acc 90.6250 (90.3125) lr 1.5567e-04 eta 0:15:52
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:11<00:44, 11.06s/it] 40%|████      | 2/5 [00:14<00:20,  6.81s/it] 60%|██████    | 3/5 [00:18<00:10,  5.44s/it] 80%|████████  | 4/5 [00:22<00:04,  4.80s/it]100%|██████████| 5/5 [00:25<00:00,  4.12s/it]100%|██████████| 5/5 [00:25<00:00,  5.11s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.6%
+
+epoch [44/50] batch [10/18] time 6.510 (8.656) data 0.008 (0.070) loss 0.5418 (0.4467) loss_cls 0.5418 (0.4467) loss_lap 0.0000 (0.0000) acc 84.3750 (88.4375) lr 1.2369e-04 eta 0:16:44
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:12<00:48, 12.10s/it] 40%|████      | 2/5 [00:15<00:21,  7.24s/it] 60%|██████    | 3/5 [00:19<00:11,  5.67s/it] 80%|████████  | 4/5 [00:23<00:04,  4.93s/it]100%|██████████| 5/5 [00:26<00:00,  4.20s/it]100%|██████████| 5/5 [00:26<00:00,  5.31s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.1%
+
+epoch [45/50] batch [10/18] time 5.770 (7.477) data 0.007 (0.083) loss 0.2968 (0.4392) loss_cls 0.2968 (0.4392) loss_lap 0.0000 (0.0000) acc 96.8750 (90.9375) lr 9.5173e-05 eta 0:12:12
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:10<00:40, 10.13s/it] 40%|████      | 2/5 [00:18<00:26,  8.90s/it] 60%|██████    | 3/5 [00:21<00:13,  6.54s/it] 80%|████████  | 4/5 [00:25<00:05,  5.43s/it]100%|██████████| 5/5 [00:28<00:00,  4.50s/it]100%|██████████| 5/5 [00:28<00:00,  5.72s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.0%
+
+epoch [46/50] batch [10/18] time 5.665 (6.156) data 0.007 (0.067) loss 0.3424 (0.4184) loss_cls 0.3424 (0.4184) loss_lap 0.0000 (0.0000) acc 90.6250 (90.6250) lr 7.0224e-05 eta 0:08:12
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.09s/it] 40%|████      | 2/5 [00:09<00:14,  4.77s/it] 60%|██████    | 3/5 [00:13<00:08,  4.33s/it] 80%|████████  | 4/5 [00:17<00:04,  4.12s/it]100%|██████████| 5/5 [00:20<00:00,  3.68s/it]100%|██████████| 5/5 [00:20<00:00,  4.12s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.9%
+
+epoch [47/50] batch [10/18] time 6.342 (6.866) data 0.009 (0.079) loss 0.6649 (0.4467) loss_cls 0.6649 (0.4467) loss_lap 0.0000 (0.0000) acc 81.2500 (85.9375) lr 4.8943e-05 eta 0:07:05
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:35,  8.90s/it] 40%|████      | 2/5 [00:14<00:21,  7.08s/it] 60%|██████    | 3/5 [00:19<00:12,  6.12s/it] 80%|████████  | 4/5 [00:26<00:06,  6.38s/it]100%|██████████| 5/5 [00:29<00:00,  5.21s/it]100%|██████████| 5/5 [00:29<00:00,  5.95s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.0%
+
+epoch [48/50] batch [10/18] time 8.102 (7.142) data 0.008 (0.079) loss 0.3143 (0.3973) loss_cls 0.3143 (0.3973) loss_lap 0.0000 (0.0000) acc 93.7500 (90.3125) lr 3.1417e-05 eta 0:05:14
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:27,  6.98s/it] 40%|████      | 2/5 [00:10<00:15,  5.13s/it] 60%|██████    | 3/5 [00:14<00:09,  4.54s/it] 80%|████████  | 4/5 [00:18<00:04,  4.26s/it]100%|██████████| 5/5 [00:21<00:00,  3.77s/it]100%|██████████| 5/5 [00:21<00:00,  4.30s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.1%
+
+epoch [49/50] batch [10/18] time 5.710 (7.740) data 0.008 (0.071) loss 0.3858 (0.4510) loss_cls 0.3858 (0.4510) loss_lap 0.0000 (0.0000) acc 90.6250 (88.1250) lr 1.7713e-05 eta 0:03:21
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:20,  5.20s/it] 40%|████      | 2/5 [00:08<00:12,  4.32s/it] 60%|██████    | 3/5 [00:12<00:08,  4.02s/it] 80%|████████  | 4/5 [00:16<00:03,  3.89s/it]100%|██████████| 5/5 [00:19<00:00,  3.53s/it]100%|██████████| 5/5 [00:19<00:00,  3.86s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.9%
+
+epoch [50/50] batch [10/18] time 8.251 (6.136) data 0.008 (0.070) loss 0.3371 (0.4020) loss_cls 0.3371 (0.4020) loss_lap 0.0000 (0.0000) acc 96.8750 (91.2500) lr 7.8853e-06 eta 0:00:49
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+  0%|          | 0/115 [00:00<?, ?it/s]  1%|          | 1/115 [00:05<10:38,  5.60s/it]  2%|▏         | 2/115 [00:09<08:56,  4.75s/it]  3%|▎         | 3/115 [00:13<08:25,  4.51s/it]  3%|▎         | 4/115 [00:18<08:05,  4.37s/it]  4%|▍         | 5/115 [00:22<07:52,  4.30s/it]  5%|▌         | 6/115 [00:26<07:35,  4.18s/it]  6%|▌         | 7/115 [00:30<07:30,  4.17s/it]  7%|▋         | 8/115 [00:34<07:22,  4.14s/it]  8%|▊         | 9/115 [00:38<07:20,  4.15s/it]  9%|▊         | 10/115 [00:42<07:14,  4.14s/it] 10%|▉         | 11/115 [00:46<07:10,  4.14s/it] 10%|█         | 12/115 [00:51<07:18,  4.26s/it] 11%|█▏        | 13/115 [00:55<07:11,  4.23s/it] 12%|█▏        | 14/115 [00:59<07:02,  4.18s/it] 13%|█▎        | 15/115 [01:03<06:59,  4.20s/it] 14%|█▍        | 16/115 [01:07<06:51,  4.16s/it] 15%|█▍        | 17/115 [01:12<06:47,  4.16s/it] 16%|█▌        | 18/115 [01:17<07:04,  4.37s/it] 17%|█▋        | 19/115 [01:21<06:53,  4.31s/it] 17%|█▋        | 20/115 [01:25<06:45,  4.26s/it] 18%|█▊        | 21/115 [01:29<06:38,  4.24s/it] 19%|█▉        | 22/115 [01:33<06:25,  4.14s/it] 20%|██        | 23/115 [01:37<06:18,  4.12s/it] 21%|██        | 24/115 [01:41<06:16,  4.13s/it] 22%|██▏       | 25/115 [01:46<06:30,  4.34s/it] 23%|██▎       | 26/115 [01:50<06:17,  4.25s/it] 23%|██▎       | 27/115 [01:54<06:11,  4.22s/it] 24%|██▍       | 28/115 [01:58<06:03,  4.18s/it] 25%|██▌       | 29/115 [02:03<06:05,  4.24s/it] 26%|██▌       | 30/115 [02:07<05:59,  4.23s/it] 27%|██▋       | 31/115 [02:11<05:55,  4.23s/it] 28%|██▊       | 32/115 [02:15<05:49,  4.22s/it] 29%|██▊       | 33/115 [02:19<05:44,  4.20s/it] 30%|██▉       | 34/115 [02:24<05:39,  4.20s/it] 30%|███       | 35/115 [02:28<05:35,  4.20s/it] 31%|███▏      | 36/115 [02:32<05:36,  4.26s/it] 32%|███▏      | 37/115 [02:36<05:30,  4.24s/it] 33%|███▎      | 38/115 [02:41<05:25,  4.23s/it] 34%|███▍      | 39/115 [02:45<05:21,  4.23s/it] 35%|███▍      | 40/115 [02:49<05:16,  4.22s/it] 36%|███▌      | 41/115 [02:53<05:11,  4.21s/it] 37%|███▋      | 42/115 [02:57<05:03,  4.16s/it] 37%|███▋      | 43/115 [03:02<05:17,  4.42s/it] 38%|███▊      | 44/115 [03:07<05:11,  4.38s/it] 39%|███▉      | 45/115 [03:11<05:03,  4.34s/it] 40%|████      | 46/115 [03:15<04:56,  4.29s/it] 41%|████      | 47/115 [03:19<04:50,  4.26s/it] 42%|████▏     | 48/115 [03:23<04:44,  4.24s/it] 43%|████▎     | 49/115 [03:28<04:38,  4.22s/it] 43%|████▎     | 50/115 [03:32<04:33,  4.21s/it] 44%|████▍     | 51/115 [03:36<04:28,  4.20s/it] 45%|████▌     | 52/115 [03:40<04:24,  4.20s/it] 46%|████▌     | 53/115 [03:44<04:19,  4.19s/it] 47%|████▋     | 54/115 [03:48<04:15,  4.19s/it] 48%|████▊     | 55/115 [03:53<04:09,  4.16s/it] 49%|████▊     | 56/115 [03:57<04:05,  4.16s/it] 50%|████▉     | 57/115 [04:01<04:01,  4.16s/it] 50%|█████     | 58/115 [04:05<03:54,  4.11s/it] 51%|█████▏    | 59/115 [04:09<03:51,  4.14s/it] 52%|█████▏    | 60/115 [04:13<03:48,  4.15s/it] 53%|█████▎    | 61/115 [04:19<04:15,  4.73s/it] 54%|█████▍    | 62/115 [04:26<04:34,  5.19s/it] 55%|█████▍    | 63/115 [04:31<04:33,  5.25s/it] 56%|█████▌    | 64/115 [04:35<04:12,  4.94s/it] 57%|█████▋    | 65/115 [04:40<04:07,  4.94s/it] 57%|█████▋    | 66/115 [04:48<04:47,  5.87s/it] 58%|█████▊    | 67/115 [04:54<04:46,  5.96s/it] 59%|█████▉    | 68/115 [04:59<04:15,  5.44s/it] 60%|██████    | 69/115 [05:03<03:53,  5.07s/it] 61%|██████    | 70/115 [05:07<03:32,  4.72s/it] 62%|██████▏   | 71/115 [05:11<03:19,  4.54s/it] 63%|██████▎   | 72/115 [05:15<03:09,  4.42s/it] 63%|██████▎   | 73/115 [05:19<03:01,  4.33s/it] 64%|██████▍   | 74/115 [05:23<02:55,  4.28s/it] 65%|██████▌   | 75/115 [05:28<02:53,  4.34s/it] 66%|██████▌   | 76/115 [05:32<02:44,  4.21s/it] 67%|██████▋   | 77/115 [05:36<02:38,  4.17s/it] 68%|██████▊   | 78/115 [05:40<02:33,  4.14s/it] 69%|██████▊   | 79/115 [05:44<02:29,  4.16s/it] 70%|██████▉   | 80/115 [05:48<02:25,  4.17s/it] 70%|███████   | 81/115 [05:52<02:22,  4.18s/it] 71%|███████▏  | 82/115 [05:57<02:18,  4.18s/it] 72%|███████▏  | 83/115 [06:01<02:13,  4.18s/it] 73%|███████▎  | 84/115 [06:05<02:09,  4.19s/it] 74%|███████▍  | 85/115 [06:09<02:05,  4.20s/it] 75%|███████▍  | 86/115 [06:13<02:01,  4.20s/it] 76%|███████▌  | 87/115 [06:29<03:34,  7.68s/it] 77%|███████▋  | 88/115 [06:33<03:00,  6.67s/it] 77%|███████▋  | 89/115 [06:38<02:34,  5.92s/it] 78%|███████▊  | 90/115 [06:51<03:27,  8.28s/it] 79%|███████▉  | 91/115 [07:03<03:44,  9.36s/it] 80%|████████  | 92/115 [07:07<02:58,  7.78s/it] 81%|████████  | 93/115 [07:12<02:27,  6.70s/it] 82%|████████▏ | 94/115 [07:16<02:04,  5.92s/it] 83%|████████▎ | 95/115 [07:20<01:47,  5.35s/it] 83%|████████▎ | 96/115 [07:25<01:41,  5.35s/it] 84%|████████▍ | 97/115 [07:29<01:29,  4.96s/it] 85%|████████▌ | 98/115 [07:45<02:18,  8.15s/it] 86%|████████▌ | 99/115 [07:59<02:38,  9.89s/it] 87%|████████▋ | 100/115 [08:09<02:28,  9.90s/it] 88%|████████▊ | 101/115 [08:24<02:43, 11.70s/it] 89%|████████▊ | 102/115 [08:33<02:21, 10.87s/it] 90%|████████▉ | 103/115 [08:51<02:33, 12.83s/it] 90%|█████████ | 104/115 [09:12<02:47, 15.18s/it] 91%|█████████▏| 105/115 [09:28<02:34, 15.47s/it] 92%|█████████▏| 106/115 [09:39<02:07, 14.17s/it] 93%|█████████▎| 107/115 [09:51<01:48, 13.51s/it] 94%|█████████▍| 108/115 [10:01<01:28, 12.59s/it] 95%|█████████▍| 109/115 [10:13<01:14, 12.43s/it] 96%|█████████▌| 110/115 [10:32<01:11, 14.21s/it] 97%|█████████▋| 111/115 [10:46<00:56, 14.24s/it] 97%|█████████▋| 112/115 [11:04<00:45, 15.25s/it] 98%|█████████▊| 113/115 [11:19<00:30, 15.17s/it] 99%|█████████▉| 114/115 [11:33<00:14, 14.84s/it]100%|██████████| 115/115 [11:46<00:00, 14.36s/it]100%|██████████| 115/115 [11:46<00:00,  6.14s/it]
+=> result
+* total: 3,669
+* correct: 2,257
+* accuracy: 61.5%
+* error: 38.5%
+* macro_f1: 61.0%
+Elapsed: 2:00:18
+Setting fixed seed: 1
+***************
+** Arguments **
+***************
+backbone: 
+config_file: configs/trainers/GraphCoOp/rn50_ep200.yaml
+dataset_config_file: configs/datasets/oxford_pets.yaml
+eval_only: False
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+opts: ['DATASET.NUM_SHOTS', '16', 'SEED', '1', 'MODEL.BACKBONE.NAME', 'RN50', 'OPTIM.MAX_EPOCH', '50', 'TRAINER.GRAPHCOOP.PREC', 'fp32', 'TRAINER.GRAPHCOOP.USE_GLS', 'True', 'TRAINER.GRAPHCOOP.USE_LAP', 'True', 'TRAINER.GRAPHCOOP.USE_GCN', 'True', 'TRAINER.GRAPHCOOP.USE_GCD', 'False']
+output_dir: output/oxford_pets/GraphFull/seed1
+resume: 
+root: /home/f20220580/data
+seed: -1
+source_domains: None
+target_domains: None
+trainer: GraphCoOp
+transforms: None
+************
+** Config **
+************
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 4
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 32
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: OxfordPets
+  NUM_LABELED: -1
+  NUM_SHOTS: 16
+  ROOT: /home/f20220580/data
+  SOURCE_DOMAINS: ()
+  STL10_FOLD: -1
+  SUBSAMPLE_CLASSES: all
+  TARGET_DOMAINS: ()
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bilinear
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ()
+MODEL:
+  BACKBONE:
+    NAME: RN50
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.002
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 50
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: 1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: constant
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/oxford_pets/GraphFull/seed1
+RESUME: 
+SEED: 1
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 10
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  COCOOP:
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  COOP:
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    N_CTX: 16
+    PREC: fp16
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  GRAPHCOOP:
+    ALPHA: 0.1
+    CLASS_TOKEN_POSITION: end
+    CSC: False
+    CTX_INIT: 
+    GAMMA_DIFF: 1.0
+    GCN_HIDDEN: 256
+    LAMBDA_LAP: 0.01
+    N_CTX: 16
+    N_PROTO: 8
+    PREC: fp32
+    THRESHOLD: 0.3
+    USE_GCD: False
+    USE_GCN: True
+    USE_GLS: True
+    USE_LAP: True
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: GraphCoOp
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 1.12.1
+Is debug build: False
+CUDA used to build PyTorch: 11.3
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.4 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.31
+
+Python version: 3.8.20 (default, Oct  3 2024, 15:24:27)  [GCC 11.2.0] (64-bit runtime)
+Python platform: Linux-5.4.0-216-generic-x86_64-with-glibc2.17
+Is CUDA available: False
+CUDA runtime version: 10.1.243
+GPU models and configuration: 
+GPU 0: Tesla M10
+GPU 1: Tesla M10
+GPU 2: Tesla M10
+GPU 3: Tesla M10
+
+Nvidia driver version: 535.230.02
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+Versions of relevant libraries:
+[pip3] numpy==1.24.2
+[pip3] torch==1.12.1
+[pip3] torchmetrics==0.11.4
+[pip3] torchvision==0.13.1
+[conda] blas                       1.0              mkl
+[conda] cudatoolkit                11.3.1           h2bc3f7f_2
+[conda] mkl                        2023.1.0         h213fc3f_46344
+[conda] mkl-service                2.4.0            py38h5eee18b_1
+[conda] mkl_fft                    1.3.8            py38h5eee18b_0
+[conda] mkl_random                 1.2.4            py38hdb19cb5_0
+[conda] numpy                      1.24.3           py38hf6e8229_1
+[conda] numpy-base                 1.24.3           py38h060ed82_1
+[conda] pytorch                    1.12.1           py3.8_cuda11.3_cudnn8.3.2_0  pytorch
+[conda] pytorch-mutex              1.0              cuda                         pytorch
+[conda] torchvision                0.13.1           py38_cu113                   pytorch
+        Pillow (10.4.0)
+
+Loading trainer: GraphCoOp
+Loading dataset: OxfordPets
+Reading split from /home/f20220580/data/oxford_pets/split_zhou_OxfordPets.json
+Loading preprocessed few-shot data from /home/f20220580/data/oxford_pets/split_fewshot/shot_16-seed_1.pkl
+Building transform_train
++ resize to 224x224
++ to torch tensor of range [0, 1]
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
+---------  ----------
+Dataset    OxfordPets
+# classes  37
+# train_x  592
+# val      148
+# test     3,669
+---------  ----------
+Loading CLIP (backbone: RN50)
+Building semantic class graph from CLIP text embeddings ...
+Building custom CLIP with graph modifications ...
+Turning off gradients in CLIP ...
+Trainable parameters: 532,480
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+Initialize tensorboard (log_dir=output/oxford_pets/GraphFull/seed1/tensorboard)
+/home/f20220580/GCD/CoOp/clip/clip.py:23: UserWarning: PyTorch version 1.7.1 or higher is recommended
+  warnings.warn("PyTorch version 1.7.1 or higher is recommended")
+/home/f20220580/.miniconda/envs/graphcoop/lib/python3.8/site-packages/torch/cuda/__init__.py:83: UserWarning: CUDA initialization: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 205: mapping of buffer object failed (Triggered internally at  /opt/conda/conda-bld/pytorch_1659484810403/work/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+epoch [1/50] batch [10/18] time 25.777 (18.416) data 0.009 (0.066) loss 2.5636 (2.7677) loss_cls 2.5636 (2.7677) loss_lap 0.0023 (0.0023) acc 34.3750 (30.3125) lr 1.0000e-05 eta 4:33:10
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:16<01:06, 16.53s/it] 40%|████      | 2/5 [00:33<00:49, 16.66s/it] 60%|██████    | 3/5 [00:37<00:22, 11.10s/it] 80%|████████  | 4/5 [00:49<00:11, 11.31s/it]100%|██████████| 5/5 [00:58<00:00, 10.66s/it]100%|██████████| 5/5 [00:59<00:00, 11.81s/it]=> result
+* total: 148
+* correct: 63
+* accuracy: 42.6%
+* error: 57.4%
+* macro_f1: 36.8%
+
+epoch [2/50] batch [10/18] time 13.871 (20.258) data 0.008 (0.075) loss 2.0340 (2.3865) loss_cls 2.0340 (2.3865) loss_lap 0.0032 (0.0038) acc 53.1250 (41.5625) lr 2.0000e-03 eta 4:54:25
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.14s/it] 40%|████      | 2/5 [00:15<00:24,  8.11s/it] 60%|██████    | 3/5 [00:31<00:23, 11.52s/it] 80%|████████  | 4/5 [00:38<00:10, 10.00s/it]100%|██████████| 5/5 [00:49<00:00, 10.29s/it]100%|██████████| 5/5 [00:49<00:00,  9.95s/it]=> result
+* total: 148
+* correct: 85
+* accuracy: 57.4%
+* error: 42.6%
+* macro_f1: 55.6%
+
+epoch [3/50] batch [10/18] time 21.117 (21.115) data 0.009 (0.071) loss 2.3302 (2.0499) loss_cls 2.3302 (2.0498) loss_lap 0.0032 (0.0027) acc 34.3750 (50.6250) lr 1.9980e-03 eta 5:00:32
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:30,  7.65s/it] 40%|████      | 2/5 [00:21<00:33, 11.16s/it] 60%|██████    | 3/5 [00:25<00:15,  7.78s/it] 80%|████████  | 4/5 [00:32<00:07,  7.67s/it]100%|██████████| 5/5 [00:39<00:00,  7.49s/it]100%|██████████| 5/5 [00:39<00:00,  7.97s/it]=> result
+* total: 148
+* correct: 92
+* accuracy: 62.2%
+* error: 37.8%
+* macro_f1: 61.7%
+
+epoch [4/50] batch [10/18] time 28.012 (17.952) data 0.008 (0.079) loss 2.1655 (1.9317) loss_cls 2.1654 (1.9317) loss_lap 0.0029 (0.0027) acc 43.7500 (58.1250) lr 1.9921e-03 eta 4:10:07
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:21<01:24, 21.18s/it] 40%|████      | 2/5 [00:30<00:42, 14.24s/it] 60%|██████    | 3/5 [00:34<00:19,  9.68s/it] 80%|████████  | 4/5 [00:45<00:09,  9.90s/it]100%|██████████| 5/5 [00:54<00:00,  9.67s/it]100%|██████████| 5/5 [00:54<00:00, 10.89s/it]=> result
+* total: 148
+* correct: 91
+* accuracy: 61.5%
+* error: 38.5%
+* macro_f1: 60.7%
+
+epoch [5/50] batch [10/18] time 19.616 (15.825) data 0.006 (0.077) loss 1.9636 (1.9161) loss_cls 1.9635 (1.9160) loss_lap 0.0023 (0.0029) acc 65.6250 (57.5000) lr 1.9823e-03 eta 3:35:45
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.02s/it] 40%|████      | 2/5 [00:10<00:15,  5.02s/it] 60%|██████    | 3/5 [00:14<00:09,  4.58s/it] 80%|████████  | 4/5 [00:18<00:04,  4.26s/it]100%|██████████| 5/5 [00:21<00:00,  3.86s/it]100%|██████████| 5/5 [00:21<00:00,  4.30s/it]=> result
+* total: 148
+* correct: 90
+* accuracy: 60.8%
+* error: 39.2%
+* macro_f1: 60.5%
+
+epoch [6/50] batch [10/18] time 20.476 (16.336) data 0.007 (0.081) loss 1.7785 (1.8740) loss_cls 1.7785 (1.8740) loss_lap 0.0029 (0.0031) acc 62.5000 (57.5000) lr 1.9686e-03 eta 3:37:48
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:17<01:09, 17.39s/it] 40%|████      | 2/5 [00:32<00:47, 15.91s/it] 60%|██████    | 3/5 [00:45<00:29, 14.80s/it] 80%|████████  | 4/5 [00:57<00:13, 13.59s/it]100%|██████████| 5/5 [01:04<00:00, 11.27s/it]100%|██████████| 5/5 [01:04<00:00, 12.95s/it]=> result
+* total: 148
+* correct: 86
+* accuracy: 58.1%
+* error: 41.9%
+* macro_f1: 57.8%
+
+epoch [7/50] batch [10/18] time 5.696 (16.083) data 0.006 (0.071) loss 1.8068 (1.8170) loss_cls 1.8068 (1.8170) loss_lap 0.0028 (0.0031) acc 59.3750 (62.5000) lr 1.9511e-03 eta 3:29:37
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:13<00:54, 13.65s/it] 40%|████      | 2/5 [00:20<00:28,  9.36s/it] 60%|██████    | 3/5 [00:36<00:25, 12.70s/it] 80%|████████  | 4/5 [00:43<00:10, 10.43s/it]100%|██████████| 5/5 [00:53<00:00, 10.32s/it]100%|██████████| 5/5 [00:53<00:00, 10.78s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 65.1%
+
+epoch [8/50] batch [10/18] time 19.786 (18.828) data 0.006 (0.073) loss 1.8955 (1.7676) loss_cls 1.8955 (1.7676) loss_lap 0.0035 (0.0029) acc 62.5000 (64.6875) lr 1.9298e-03 eta 3:59:44
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:34,  8.60s/it] 40%|████      | 2/5 [00:13<00:19,  6.40s/it] 60%|██████    | 3/5 [00:17<00:10,  5.40s/it] 80%|████████  | 4/5 [00:21<00:04,  4.83s/it]100%|██████████| 5/5 [00:25<00:00,  4.32s/it]100%|██████████| 5/5 [00:25<00:00,  5.03s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.6%
+
+epoch [9/50] batch [10/18] time 6.703 (14.206) data 0.008 (0.081) loss 1.7781 (1.7412) loss_cls 1.7781 (1.7411) loss_lap 0.0033 (0.0033) acc 62.5000 (64.3750) lr 1.9048e-03 eta 2:56:37
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:28,  7.09s/it] 40%|████      | 2/5 [00:10<00:15,  5.21s/it] 60%|██████    | 3/5 [00:15<00:09,  4.92s/it] 80%|████████  | 4/5 [00:19<00:04,  4.56s/it]100%|██████████| 5/5 [00:22<00:00,  3.97s/it]100%|██████████| 5/5 [00:22<00:00,  4.53s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.2%
+
+epoch [10/50] batch [10/18] time 15.909 (12.742) data 0.010 (0.087) loss 1.6360 (1.7477) loss_cls 1.6359 (1.7477) loss_lap 0.0036 (0.0033) acc 71.8750 (65.0000) lr 1.8763e-03 eta 2:34:36
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:16<01:04, 16.04s/it] 40%|████      | 2/5 [00:20<00:28,  9.45s/it] 60%|██████    | 3/5 [00:34<00:22, 11.19s/it] 80%|████████  | 4/5 [00:44<00:10, 10.88s/it]100%|██████████| 5/5 [01:01<00:00, 13.06s/it]100%|██████████| 5/5 [01:01<00:00, 12.32s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 62.9%
+
+epoch [11/50] batch [10/18] time 20.438 (19.018) data 0.009 (0.079) loss 1.6613 (1.6594) loss_cls 1.6613 (1.6594) loss_lap 0.0041 (0.0036) acc 68.7500 (70.6250) lr 1.8443e-03 eta 3:45:03
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:38,  9.60s/it] 40%|████      | 2/5 [00:17<00:25,  8.51s/it] 60%|██████    | 3/5 [00:32<00:23, 11.74s/it] 80%|████████  | 4/5 [00:40<00:09, 10.00s/it]100%|██████████| 5/5 [00:55<00:00, 11.99s/it]100%|██████████| 5/5 [00:55<00:00, 11.18s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 64.3%
+
+epoch [12/50] batch [10/18] time 15.180 (19.970) data 0.008 (0.066) loss 1.6031 (1.6348) loss_cls 1.6031 (1.6348) loss_lap 0.0040 (0.0033) acc 75.0000 (73.1250) lr 1.8090e-03 eta 3:50:19
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:18<01:15, 18.89s/it] 40%|████      | 2/5 [00:30<00:43, 14.40s/it] 60%|██████    | 3/5 [00:45<00:29, 14.64s/it] 80%|████████  | 4/5 [00:58<00:14, 14.03s/it]100%|██████████| 5/5 [01:01<00:00, 10.15s/it]100%|██████████| 5/5 [01:01<00:00, 12.34s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.0%
+
+epoch [13/50] batch [10/18] time 24.997 (22.314) data 0.007 (0.076) loss 1.5439 (1.5842) loss_cls 1.5439 (1.5842) loss_lap 0.0036 (0.0033) acc 78.1250 (73.7500) lr 1.7705e-03 eta 4:10:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:35,  8.98s/it] 40%|████      | 2/5 [00:18<00:27,  9.20s/it] 60%|██████    | 3/5 [00:27<00:18,  9.10s/it] 80%|████████  | 4/5 [00:31<00:07,  7.07s/it]100%|██████████| 5/5 [00:34<00:00,  5.70s/it]100%|██████████| 5/5 [00:34<00:00,  6.95s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 63.9%
+
+epoch [14/50] batch [10/18] time 16.577 (13.140) data 0.008 (0.069) loss 1.6226 (1.6250) loss_cls 1.6226 (1.6250) loss_lap 0.0037 (0.0036) acc 75.0000 (72.5000) lr 1.7290e-03 eta 2:23:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.62s/it] 40%|████      | 2/5 [00:09<00:14,  4.69s/it] 60%|██████    | 3/5 [00:14<00:09,  4.79s/it] 80%|████████  | 4/5 [00:18<00:04,  4.57s/it]100%|██████████| 5/5 [00:24<00:00,  4.81s/it]100%|██████████| 5/5 [00:24<00:00,  4.83s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 66.0%
+
+epoch [15/50] batch [10/18] time 7.233 (13.949) data 0.008 (0.077) loss 1.6908 (1.5864) loss_cls 1.6907 (1.5863) loss_lap 0.0036 (0.0036) acc 65.6250 (71.5625) lr 1.6845e-03 eta 2:28:19
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.75s/it] 40%|████      | 2/5 [00:13<00:21,  7.14s/it] 60%|██████    | 3/5 [00:18<00:12,  6.10s/it] 80%|████████  | 4/5 [00:22<00:05,  5.24s/it]100%|██████████| 5/5 [00:25<00:00,  4.45s/it]100%|██████████| 5/5 [00:25<00:00,  5.16s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.3%
+
+epoch [16/50] batch [10/18] time 13.291 (12.862) data 0.008 (0.071) loss 1.6994 (1.5857) loss_cls 1.6993 (1.5857) loss_lap 0.0038 (0.0035) acc 71.8750 (72.1875) lr 1.6374e-03 eta 2:12:54
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:12<00:48, 12.22s/it] 40%|████      | 2/5 [00:19<00:28,  9.44s/it] 60%|██████    | 3/5 [00:28<00:18,  9.15s/it] 80%|████████  | 4/5 [00:36<00:08,  8.54s/it]100%|██████████| 5/5 [00:43<00:00,  8.06s/it]100%|██████████| 5/5 [00:43<00:00,  8.70s/it]=> result
+* total: 148
+* correct: 92
+* accuracy: 62.2%
+* error: 37.8%
+* macro_f1: 63.6%
+
+epoch [17/50] batch [10/18] time 9.361 (11.773) data 0.008 (0.096) loss 1.4059 (1.5020) loss_cls 1.4058 (1.5019) loss_lap 0.0039 (0.0040) acc 78.1250 (77.8125) lr 1.5878e-03 eta 1:58:07
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:12<00:49, 12.40s/it] 40%|████      | 2/5 [00:17<00:24,  8.05s/it] 60%|██████    | 3/5 [00:21<00:12,  6.20s/it] 80%|████████  | 4/5 [00:26<00:05,  5.85s/it]100%|██████████| 5/5 [00:35<00:00,  6.90s/it]100%|██████████| 5/5 [00:35<00:00,  7.12s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.2%
+
+epoch [18/50] batch [10/18] time 14.684 (12.812) data 0.006 (0.073) loss 1.6190 (1.4473) loss_cls 1.6190 (1.4473) loss_lap 0.0038 (0.0042) acc 75.0000 (81.5625) lr 1.5358e-03 eta 2:04:41
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:28,  7.22s/it] 40%|████      | 2/5 [00:12<00:17,  5.89s/it] 60%|██████    | 3/5 [00:16<00:10,  5.04s/it] 80%|████████  | 4/5 [00:22<00:05,  5.54s/it]100%|██████████| 5/5 [00:30<00:00,  6.25s/it]100%|██████████| 5/5 [00:30<00:00,  6.03s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 63.1%
+
+epoch [19/50] batch [10/18] time 15.288 (15.139) data 0.007 (0.073) loss 1.4382 (1.5348) loss_cls 1.4382 (1.5348) loss_lap 0.0035 (0.0037) acc 78.1250 (75.6250) lr 1.4818e-03 eta 2:22:48
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:11<00:46, 11.74s/it] 40%|████      | 2/5 [00:23<00:34, 11.56s/it] 60%|██████    | 3/5 [00:31<00:20, 10.00s/it] 80%|████████  | 4/5 [00:36<00:07,  7.95s/it]100%|██████████| 5/5 [00:40<00:00,  6.61s/it]100%|██████████| 5/5 [00:40<00:00,  8.10s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 66.0%
+
+epoch [20/50] batch [10/18] time 9.399 (12.760) data 0.008 (0.075) loss 1.4522 (1.4983) loss_cls 1.4522 (1.4983) loss_lap 0.0037 (0.0041) acc 81.2500 (78.1250) lr 1.4258e-03 eta 1:56:32
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:34,  8.52s/it] 40%|████      | 2/5 [00:12<00:17,  5.85s/it] 60%|██████    | 3/5 [00:21<00:14,  7.20s/it] 80%|████████  | 4/5 [00:28<00:07,  7.24s/it]100%|██████████| 5/5 [00:33<00:00,  6.43s/it]100%|██████████| 5/5 [00:33<00:00,  6.75s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.6%
+
+epoch [21/50] batch [10/18] time 13.134 (14.714) data 0.007 (0.076) loss 1.4476 (1.5212) loss_cls 1.4475 (1.5212) loss_lap 0.0047 (0.0040) acc 78.1250 (75.0000) lr 1.3681e-03 eta 2:09:58
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:10<00:42, 10.73s/it] 40%|████      | 2/5 [00:19<00:28,  9.57s/it] 60%|██████    | 3/5 [00:27<00:17,  8.65s/it] 80%|████████  | 4/5 [00:31<00:06,  6.81s/it]100%|██████████| 5/5 [00:34<00:00,  5.64s/it]100%|██████████| 5/5 [00:34<00:00,  6.95s/it]=> result
+* total: 148
+* correct: 94
+* accuracy: 63.5%
+* error: 36.5%
+* macro_f1: 64.0%
+
+epoch [22/50] batch [10/18] time 14.836 (11.181) data 0.008 (0.070) loss 1.5402 (1.4644) loss_cls 1.5401 (1.4644) loss_lap 0.0042 (0.0038) acc 71.8750 (79.3750) lr 1.3090e-03 eta 1:35:24
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:30,  7.61s/it] 40%|████      | 2/5 [00:11<00:17,  5.67s/it] 60%|██████    | 3/5 [00:19<00:13,  6.58s/it] 80%|████████  | 4/5 [00:25<00:06,  6.43s/it]100%|██████████| 5/5 [00:33<00:00,  7.07s/it]100%|██████████| 5/5 [00:34<00:00,  6.83s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 62.9%
+
+epoch [23/50] batch [10/18] time 10.235 (13.978) data 0.007 (0.074) loss 1.2835 (1.4612) loss_cls 1.2834 (1.4611) loss_lap 0.0040 (0.0040) acc 84.3750 (78.4375) lr 1.2487e-03 eta 1:55:05
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:35,  8.93s/it] 40%|████      | 2/5 [00:20<00:31, 10.60s/it] 60%|██████    | 3/5 [00:31<00:20, 10.50s/it] 80%|████████  | 4/5 [00:35<00:08,  8.15s/it]100%|██████████| 5/5 [00:41<00:00,  7.35s/it]100%|██████████| 5/5 [00:41<00:00,  8.34s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 65.6%
+
+epoch [24/50] batch [10/18] time 12.220 (15.796) data 0.007 (0.077) loss 1.4023 (1.4482) loss_cls 1.4023 (1.4482) loss_lap 0.0036 (0.0041) acc 78.1250 (79.6875) lr 1.1874e-03 eta 2:05:19
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:33,  8.33s/it] 40%|████      | 2/5 [00:16<00:24,  8.03s/it] 60%|██████    | 3/5 [00:22<00:14,  7.14s/it] 80%|████████  | 4/5 [00:30<00:07,  7.72s/it]100%|██████████| 5/5 [00:34<00:00,  6.34s/it]100%|██████████| 5/5 [00:34<00:00,  6.97s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.0%
+
+epoch [25/50] batch [10/18] time 5.902 (12.249) data 0.006 (0.074) loss 1.5981 (1.4407) loss_cls 1.5981 (1.4407) loss_lap 0.0043 (0.0046) acc 78.1250 (80.9375) lr 1.1253e-03 eta 1:33:30
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.88s/it] 40%|████      | 2/5 [00:14<00:21,  7.15s/it] 60%|██████    | 3/5 [00:20<00:13,  6.76s/it] 80%|████████  | 4/5 [00:26<00:06,  6.51s/it]100%|██████████| 5/5 [00:32<00:00,  6.28s/it]100%|██████████| 5/5 [00:32<00:00,  6.59s/it]=> result
+* total: 148
+* correct: 90
+* accuracy: 60.8%
+* error: 39.2%
+* macro_f1: 60.8%
+
+epoch [26/50] batch [10/18] time 7.879 (12.870) data 0.008 (0.074) loss 1.2133 (1.4018) loss_cls 1.2133 (1.4018) loss_lap 0.0044 (0.0042) acc 90.6250 (82.1875) lr 1.0628e-03 eta 1:34:22
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:18<01:14, 18.55s/it] 40%|████      | 2/5 [00:29<00:41, 13.93s/it] 60%|██████    | 3/5 [00:33<00:19,  9.58s/it] 80%|████████  | 4/5 [00:41<00:08,  8.77s/it]100%|██████████| 5/5 [00:44<00:00,  6.89s/it]100%|██████████| 5/5 [00:44<00:00,  8.97s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.5%
+
+epoch [27/50] batch [10/18] time 12.052 (12.267) data 0.007 (0.076) loss 1.4225 (1.3744) loss_cls 1.4224 (1.3743) loss_lap 0.0042 (0.0041) acc 78.1250 (82.1875) lr 1.0000e-03 eta 1:26:16
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.18s/it] 40%|████      | 2/5 [00:10<00:15,  5.14s/it] 60%|██████    | 3/5 [00:16<00:10,  5.40s/it] 80%|████████  | 4/5 [00:20<00:04,  4.75s/it]100%|██████████| 5/5 [00:23<00:00,  4.13s/it]100%|██████████| 5/5 [00:23<00:00,  4.64s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 67.3%
+
+epoch [28/50] batch [10/18] time 9.246 (12.988) data 0.009 (0.070) loss 1.3752 (1.3566) loss_cls 1.3751 (1.3566) loss_lap 0.0044 (0.0044) acc 87.5000 (85.6250) lr 9.3721e-04 eta 1:27:27
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:36,  9.02s/it] 40%|████      | 2/5 [00:15<00:22,  7.45s/it] 60%|██████    | 3/5 [00:20<00:12,  6.23s/it] 80%|████████  | 4/5 [00:29<00:07,  7.64s/it]100%|██████████| 5/5 [00:36<00:00,  7.31s/it]100%|██████████| 5/5 [00:36<00:00,  7.36s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.0%
+
+epoch [29/50] batch [10/18] time 9.894 (11.713) data 0.008 (0.077) loss 1.2885 (1.3379) loss_cls 1.2885 (1.3379) loss_lap 0.0043 (0.0044) acc 87.5000 (84.6875) lr 8.7467e-04 eta 1:15:21
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:32,  8.09s/it] 40%|████      | 2/5 [00:12<00:18,  6.14s/it] 60%|██████    | 3/5 [00:18<00:11,  5.91s/it] 80%|████████  | 4/5 [00:22<00:05,  5.22s/it]100%|██████████| 5/5 [00:28<00:00,  5.51s/it]100%|██████████| 5/5 [00:28<00:00,  5.76s/it]=> result
+* total: 148
+* correct: 102
+* accuracy: 68.9%
+* error: 31.1%
+* macro_f1: 69.2%
+
+epoch [30/50] batch [10/18] time 8.961 (12.170) data 0.008 (0.081) loss 1.4807 (1.3286) loss_cls 1.4806 (1.3285) loss_lap 0.0041 (0.0041) acc 71.8750 (86.5625) lr 8.1262e-04 eta 1:14:38
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:13<00:55, 13.95s/it] 40%|████      | 2/5 [00:18<00:25,  8.59s/it] 60%|██████    | 3/5 [00:25<00:15,  7.72s/it] 80%|████████  | 4/5 [00:37<00:09,  9.39s/it]100%|██████████| 5/5 [00:42<00:00,  7.93s/it]100%|██████████| 5/5 [00:42<00:00,  8.58s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 68.2%
+
+epoch [31/50] batch [10/18] time 6.790 (13.449) data 0.007 (0.076) loss 1.1849 (1.3554) loss_cls 1.1848 (1.3554) loss_lap 0.0042 (0.0045) acc 93.7500 (83.4375) lr 7.5131e-04 eta 1:18:27
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:30,  7.67s/it] 40%|████      | 2/5 [00:15<00:22,  7.60s/it] 60%|██████    | 3/5 [00:22<00:14,  7.32s/it] 80%|████████  | 4/5 [00:34<00:09,  9.24s/it]100%|██████████| 5/5 [00:38<00:00,  7.33s/it]100%|██████████| 5/5 [00:38<00:00,  7.69s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 67.3%
+
+epoch [32/50] batch [10/18] time 14.233 (12.498) data 0.010 (0.068) loss 1.2687 (1.2881) loss_cls 1.2686 (1.2880) loss_lap 0.0046 (0.0044) acc 87.5000 (86.2500) lr 6.9098e-04 eta 1:09:09
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:12<00:48, 12.08s/it] 40%|████      | 2/5 [00:19<00:28,  9.53s/it] 60%|██████    | 3/5 [00:25<00:15,  7.86s/it] 80%|████████  | 4/5 [00:30<00:06,  6.76s/it]100%|██████████| 5/5 [00:34<00:00,  5.49s/it]100%|██████████| 5/5 [00:34<00:00,  6.83s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 66.7%
+
+epoch [33/50] batch [10/18] time 18.534 (14.066) data 0.006 (0.071) loss 1.3874 (1.3380) loss_cls 1.3874 (1.3379) loss_lap 0.0045 (0.0044) acc 84.3750 (83.4375) lr 6.3188e-04 eta 1:13:36
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:32,  8.21s/it] 40%|████      | 2/5 [00:12<00:17,  5.71s/it] 60%|██████    | 3/5 [00:21<00:14,  7.25s/it] 80%|████████  | 4/5 [00:26<00:06,  6.59s/it]100%|██████████| 5/5 [00:36<00:00,  7.79s/it]100%|██████████| 5/5 [00:36<00:00,  7.38s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 65.9%
+
+epoch [34/50] batch [10/18] time 7.746 (11.457) data 0.008 (0.073) loss 1.2881 (1.3496) loss_cls 1.2881 (1.3496) loss_lap 0.0047 (0.0047) acc 87.5000 (82.8125) lr 5.7422e-04 eta 0:56:31
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.99s/it] 40%|████      | 2/5 [00:18<00:27,  9.31s/it] 60%|██████    | 3/5 [00:22<00:13,  6.92s/it] 80%|████████  | 4/5 [00:26<00:06,  6.03s/it]100%|██████████| 5/5 [00:32<00:00,  5.69s/it]100%|██████████| 5/5 [00:32<00:00,  6.43s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.7%
+
+epoch [35/50] batch [10/18] time 11.805 (12.223) data 0.008 (0.070) loss 1.4475 (1.2851) loss_cls 1.4474 (1.2850) loss_lap 0.0042 (0.0043) acc 81.2500 (87.1875) lr 5.1825e-04 eta 0:56:37
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:34,  8.74s/it] 40%|████      | 2/5 [00:12<00:18,  6.04s/it] 60%|██████    | 3/5 [00:18<00:12,  6.06s/it] 80%|████████  | 4/5 [00:23<00:05,  5.28s/it]100%|██████████| 5/5 [00:26<00:00,  4.60s/it]100%|██████████| 5/5 [00:26<00:00,  5.32s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.7%
+
+epoch [36/50] batch [10/18] time 14.660 (11.794) data 0.008 (0.077) loss 1.2498 (1.3061) loss_cls 1.2498 (1.3061) loss_lap 0.0047 (0.0046) acc 87.5000 (86.2500) lr 4.6417e-04 eta 0:51:06
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:36,  9.24s/it] 40%|████      | 2/5 [00:13<00:19,  6.46s/it] 60%|██████    | 3/5 [00:17<00:10,  5.28s/it] 80%|████████  | 4/5 [00:21<00:04,  4.71s/it]100%|██████████| 5/5 [00:24<00:00,  4.10s/it]100%|██████████| 5/5 [00:24<00:00,  4.92s/it]=> result
+* total: 148
+* correct: 104
+* accuracy: 70.3%
+* error: 29.7%
+* macro_f1: 71.5%
+
+epoch [37/50] batch [10/18] time 17.046 (10.852) data 0.008 (0.072) loss 1.2273 (1.2913) loss_cls 1.2273 (1.2913) loss_lap 0.0046 (0.0045) acc 90.6250 (89.6875) lr 4.1221e-04 eta 0:43:46
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:33,  8.37s/it] 40%|████      | 2/5 [00:15<00:22,  7.44s/it] 60%|██████    | 3/5 [00:19<00:11,  5.85s/it] 80%|████████  | 4/5 [00:23<00:05,  5.09s/it]100%|██████████| 5/5 [00:29<00:00,  5.41s/it]100%|██████████| 5/5 [00:29<00:00,  5.83s/it]=> result
+* total: 148
+* correct: 100
+* accuracy: 67.6%
+* error: 32.4%
+* macro_f1: 68.4%
+
+epoch [38/50] batch [10/18] time 8.149 (11.993) data 0.006 (0.068) loss 1.2990 (1.2524) loss_cls 1.2989 (1.2524) loss_lap 0.0045 (0.0046) acc 84.3750 (89.3750) lr 3.6258e-04 eta 0:44:46
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.94s/it] 40%|████      | 2/5 [00:20<00:32, 10.76s/it] 60%|██████    | 3/5 [00:24<00:15,  7.80s/it] 80%|████████  | 4/5 [00:35<00:08,  8.83s/it]100%|██████████| 5/5 [00:49<00:00, 10.58s/it]100%|██████████| 5/5 [00:49<00:00,  9.83s/it]=> result
+* total: 148
+* correct: 96
+* accuracy: 64.9%
+* error: 35.1%
+* macro_f1: 65.5%
+
+epoch [39/50] batch [10/18] time 11.694 (14.208) data 0.022 (0.082) loss 1.1875 (1.2797) loss_cls 1.1875 (1.2796) loss_lap 0.0047 (0.0046) acc 93.7500 (88.4375) lr 3.1545e-04 eta 0:48:46
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:11<00:45, 11.35s/it] 40%|████      | 2/5 [00:18<00:27,  9.09s/it] 60%|██████    | 3/5 [00:27<00:17,  8.89s/it] 80%|████████  | 4/5 [00:34<00:08,  8.16s/it]100%|██████████| 5/5 [00:42<00:00,  8.07s/it]100%|██████████| 5/5 [00:42<00:00,  8.51s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.4%
+
+epoch [40/50] batch [10/18] time 12.554 (11.245) data 0.009 (0.073) loss 1.2096 (1.2539) loss_cls 1.2095 (1.2539) loss_lap 0.0046 (0.0047) acc 87.5000 (90.0000) lr 2.7103e-04 eta 0:35:13
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:11<00:46, 11.60s/it] 40%|████      | 2/5 [00:16<00:23,  7.78s/it] 60%|██████    | 3/5 [00:22<00:13,  6.98s/it] 80%|████████  | 4/5 [00:28<00:06,  6.67s/it]100%|██████████| 5/5 [00:36<00:00,  6.84s/it]100%|██████████| 5/5 [00:36<00:00,  7.25s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 66.7%
+
+epoch [41/50] batch [10/18] time 17.121 (12.539) data 0.009 (0.091) loss 1.2848 (1.2388) loss_cls 1.2847 (1.2387) loss_lap 0.0048 (0.0048) acc 84.3750 (91.8750) lr 2.2949e-04 eta 0:35:31
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.87s/it] 40%|████      | 2/5 [00:11<00:16,  5.62s/it] 60%|██████    | 3/5 [00:18<00:13,  6.51s/it] 80%|████████  | 4/5 [00:26<00:06,  6.97s/it]100%|██████████| 5/5 [00:31<00:00,  6.38s/it]100%|██████████| 5/5 [00:32<00:00,  6.40s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 66.9%
+
+epoch [42/50] batch [10/18] time 7.962 (12.320) data 0.007 (0.072) loss 1.3093 (1.2377) loss_cls 1.3093 (1.2376) loss_lap 0.0046 (0.0046) acc 84.3750 (87.8125) lr 1.9098e-04 eta 0:31:12
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.82s/it] 40%|████      | 2/5 [00:14<00:21,  7.08s/it] 60%|██████    | 3/5 [00:20<00:13,  6.78s/it] 80%|████████  | 4/5 [00:24<00:05,  5.75s/it]100%|██████████| 5/5 [00:31<00:00,  5.85s/it]100%|██████████| 5/5 [00:31<00:00,  6.23s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.8%
+
+epoch [43/50] batch [10/18] time 16.760 (11.594) data 0.007 (0.078) loss 1.5217 (1.2540) loss_cls 1.5217 (1.2540) loss_lap 0.0047 (0.0048) acc 75.0000 (86.8750) lr 1.5567e-04 eta 0:25:53
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:33,  8.34s/it] 40%|████      | 2/5 [00:16<00:25,  8.51s/it] 60%|██████    | 3/5 [00:20<00:12,  6.44s/it] 80%|████████  | 4/5 [00:26<00:05,  5.96s/it]100%|██████████| 5/5 [00:33<00:00,  6.39s/it]100%|██████████| 5/5 [00:33<00:00,  6.69s/it]=> result
+* total: 148
+* correct: 98
+* accuracy: 66.2%
+* error: 33.8%
+* macro_f1: 66.2%
+
+epoch [44/50] batch [10/18] time 10.643 (12.914) data 0.010 (0.070) loss 1.2523 (1.2545) loss_cls 1.2522 (1.2544) loss_lap 0.0047 (0.0047) acc 84.3750 (88.1250) lr 1.2369e-04 eta 0:24:57
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:08<00:33,  8.43s/it] 40%|████      | 2/5 [00:14<00:21,  7.24s/it] 60%|██████    | 3/5 [00:20<00:13,  6.64s/it] 80%|████████  | 4/5 [00:25<00:05,  5.70s/it]100%|██████████| 5/5 [00:32<00:00,  6.26s/it]100%|██████████| 5/5 [00:32<00:00,  6.48s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 66.9%
+
+epoch [45/50] batch [10/18] time 15.798 (12.176) data 0.009 (0.078) loss 1.3467 (1.2414) loss_cls 1.3466 (1.2414) loss_lap 0.0047 (0.0047) acc 84.3750 (89.6875) lr 9.5173e-05 eta 0:19:53
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:09<00:38,  9.54s/it] 40%|████      | 2/5 [00:13<00:19,  6.47s/it] 60%|██████    | 3/5 [00:17<00:10,  5.37s/it] 80%|████████  | 4/5 [00:25<00:06,  6.26s/it]100%|██████████| 5/5 [00:29<00:00,  5.57s/it]100%|██████████| 5/5 [00:30<00:00,  6.00s/it]=> result
+* total: 148
+* correct: 95
+* accuracy: 64.2%
+* error: 35.8%
+* macro_f1: 63.9%
+
+epoch [46/50] batch [10/18] time 8.586 (7.991) data 0.008 (0.071) loss 1.2960 (1.2407) loss_cls 1.2960 (1.2407) loss_lap 0.0048 (0.0048) acc 90.6250 (89.0625) lr 7.0224e-05 eta 0:10:39
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.77s/it] 40%|████      | 2/5 [00:14<00:23,  7.70s/it] 60%|██████    | 3/5 [00:19<00:12,  6.11s/it] 80%|████████  | 4/5 [00:22<00:05,  5.25s/it]100%|██████████| 5/5 [00:26<00:00,  4.49s/it]100%|██████████| 5/5 [00:26<00:00,  5.25s/it]=> result
+* total: 148
+* correct: 97
+* accuracy: 65.5%
+* error: 34.5%
+* macro_f1: 65.6%
+
+epoch [47/50] batch [10/18] time 15.682 (9.551) data 0.008 (0.083) loss 1.1908 (1.2094) loss_cls 1.1908 (1.2094) loss_lap 0.0048 (0.0048) acc 96.8750 (90.9375) lr 4.8943e-05 eta 0:09:52
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:22,  5.55s/it] 40%|████      | 2/5 [00:09<00:13,  4.56s/it] 60%|██████    | 3/5 [00:13<00:08,  4.35s/it] 80%|████████  | 4/5 [00:19<00:04,  4.98s/it]100%|██████████| 5/5 [00:22<00:00,  4.24s/it]100%|██████████| 5/5 [00:22<00:00,  4.50s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 67.2%
+
+epoch [48/50] batch [10/18] time 10.255 (8.783) data 0.008 (0.078) loss 1.2717 (1.2275) loss_cls 1.2717 (1.2275) loss_lap 0.0048 (0.0048) acc 84.3750 (90.0000) lr 3.1417e-05 eta 0:06:26
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:06<00:24,  6.02s/it] 40%|████      | 2/5 [00:09<00:14,  4.69s/it] 60%|██████    | 3/5 [00:13<00:08,  4.26s/it] 80%|████████  | 4/5 [00:17<00:04,  4.11s/it]100%|██████████| 5/5 [00:20<00:00,  3.74s/it]100%|██████████| 5/5 [00:20<00:00,  4.12s/it]=> result
+* total: 148
+* correct: 101
+* accuracy: 68.2%
+* error: 31.8%
+* macro_f1: 68.2%
+
+epoch [49/50] batch [10/18] time 10.173 (9.520) data 0.007 (0.078) loss 1.4189 (1.2054) loss_cls 1.4188 (1.2053) loss_lap 0.0048 (0.0048) acc 81.2500 (90.9375) lr 1.7713e-05 eta 0:04:07
+Evaluate on the *val* set
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:05<00:23,  5.88s/it] 40%|████      | 2/5 [00:11<00:16,  5.56s/it] 60%|██████    | 3/5 [00:15<00:09,  4.76s/it] 80%|████████  | 4/5 [00:18<00:04,  4.38s/it]100%|██████████| 5/5 [00:21<00:00,  3.83s/it]100%|██████████| 5/5 [00:21<00:00,  4.36s/it]=> result
+* total: 148
+* correct: 99
+* accuracy: 66.9%
+* error: 33.1%
+* macro_f1: 66.6%
+
+epoch [50/50] batch [10/18] time 11.801 (7.163) data 0.031 (0.075) loss 1.2541 (1.2228) loss_cls 1.2541 (1.2227) loss_lap 0.0048 (0.0048) acc 81.2500 (91.2500) lr 7.8853e-06 eta 0:00:57
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+  0%|          | 0/115 [00:00<?, ?it/s]  1%|          | 1/115 [00:05<10:43,  5.65s/it]  2%|▏         | 2/115 [00:11<10:45,  5.71s/it]  3%|▎         | 3/115 [00:15<09:20,  5.00s/it]  3%|▎         | 4/115 [00:19<08:48,  4.76s/it]  4%|▍         | 5/115 [00:24<08:23,  4.58s/it]  5%|▌         | 6/115 [00:28<08:04,  4.45s/it]  6%|▌         | 7/115 [00:32<07:53,  4.38s/it]  7%|▋         | 8/115 [00:37<08:08,  4.57s/it]  8%|▊         | 9/115 [00:44<09:26,  5.35s/it]  9%|▊         | 10/115 [00:49<09:00,  5.15s/it] 10%|▉         | 11/115 [00:54<09:10,  5.29s/it] 10%|█         | 12/115 [00:59<08:31,  4.96s/it] 11%|█▏        | 13/115 [01:03<08:02,  4.73s/it] 12%|█▏        | 14/115 [01:07<07:33,  4.49s/it] 13%|█▎        | 15/115 [01:11<07:21,  4.41s/it] 14%|█▍        | 16/115 [01:15<07:09,  4.34s/it] 15%|█▍        | 17/115 [01:20<07:05,  4.34s/it] 16%|█▌        | 18/115 [01:25<07:39,  4.74s/it] 17%|█▋        | 19/115 [01:30<07:26,  4.65s/it] 17%|█▋        | 20/115 [01:34<07:08,  4.51s/it] 18%|█▊        | 21/115 [01:38<06:54,  4.41s/it] 19%|█▉        | 22/115 [01:42<06:48,  4.39s/it] 20%|██        | 23/115 [01:47<06:59,  4.56s/it] 21%|██        | 24/115 [01:52<06:47,  4.48s/it] 22%|██▏       | 25/115 [01:58<07:32,  5.03s/it] 23%|██▎       | 26/115 [02:04<07:58,  5.37s/it] 23%|██▎       | 27/115 [02:11<08:30,  5.80s/it] 24%|██▍       | 28/115 [02:15<07:48,  5.39s/it] 25%|██▌       | 29/115 [02:24<09:06,  6.35s/it] 26%|██▌       | 30/115 [02:29<08:27,  5.97s/it] 27%|██▋       | 31/115 [02:35<08:26,  6.03s/it] 28%|██▊       | 32/115 [02:41<08:15,  5.96s/it] 29%|██▊       | 33/115 [02:46<07:48,  5.72s/it] 30%|██▉       | 34/115 [02:50<07:04,  5.24s/it] 30%|███       | 35/115 [03:01<09:21,  7.02s/it] 31%|███▏      | 36/115 [03:06<08:13,  6.25s/it] 32%|███▏      | 37/115 [03:10<07:12,  5.55s/it] 33%|███▎      | 38/115 [03:14<06:28,  5.05s/it] 34%|███▍      | 39/115 [03:18<05:58,  4.71s/it] 35%|███▍      | 40/115 [03:22<05:34,  4.46s/it] 36%|███▌      | 41/115 [03:25<05:17,  4.29s/it] 37%|███▋      | 42/115 [03:29<05:04,  4.17s/it] 37%|███▋      | 43/115 [03:33<04:51,  4.05s/it] 38%|███▊      | 44/115 [03:37<04:35,  3.89s/it] 39%|███▉      | 45/115 [03:40<04:19,  3.71s/it] 40%|████      | 46/115 [03:43<04:07,  3.59s/it] 41%|████      | 47/115 [03:46<03:58,  3.51s/it] 42%|████▏     | 48/115 [03:50<03:53,  3.48s/it] 43%|████▎     | 49/115 [03:53<03:46,  3.43s/it] 43%|████▎     | 50/115 [03:57<03:41,  3.40s/it] 44%|████▍     | 51/115 [04:00<03:37,  3.39s/it] 45%|████▌     | 52/115 [04:03<03:30,  3.35s/it] 46%|████▌     | 53/115 [04:06<03:20,  3.24s/it] 47%|████▋     | 54/115 [04:09<03:13,  3.17s/it] 48%|████▊     | 55/115 [04:12<03:08,  3.14s/it] 49%|████▊     | 56/115 [04:15<03:02,  3.09s/it] 50%|████▉     | 57/115 [04:18<02:57,  3.06s/it] 50%|█████     | 58/115 [04:21<02:53,  3.04s/it] 51%|█████▏    | 59/115 [04:24<02:49,  3.03s/it] 52%|█████▏    | 60/115 [04:27<02:47,  3.04s/it] 53%|█████▎    | 61/115 [04:30<02:43,  3.03s/it] 54%|█████▍    | 62/115 [04:33<02:40,  3.02s/it] 55%|█████▍    | 63/115 [04:36<02:36,  3.01s/it] 56%|█████▌    | 64/115 [04:39<02:33,  3.01s/it] 57%|█████▋    | 65/115 [04:42<02:31,  3.02s/it] 57%|█████▋    | 66/115 [04:45<02:28,  3.04s/it] 58%|█████▊    | 67/115 [04:48<02:24,  3.01s/it] 59%|█████▉    | 68/115 [04:51<02:20,  3.00s/it] 60%|██████    | 69/115 [04:54<02:17,  2.98s/it] 61%|██████    | 70/115 [04:57<02:13,  2.98s/it] 62%|██████▏   | 71/115 [05:00<02:11,  3.00s/it] 63%|██████▎   | 72/115 [05:03<02:03,  2.88s/it] 63%|██████▎   | 73/115 [05:05<01:53,  2.70s/it] 64%|██████▍   | 74/115 [05:07<01:45,  2.58s/it] 65%|██████▌   | 75/115 [05:10<01:40,  2.50s/it] 66%|██████▌   | 76/115 [05:12<01:35,  2.45s/it] 67%|██████▋   | 77/115 [05:14<01:31,  2.40s/it] 68%|██████▊   | 78/115 [05:17<01:27,  2.35s/it] 69%|██████▊   | 79/115 [05:19<01:23,  2.33s/it] 70%|██████▉   | 80/115 [05:21<01:21,  2.33s/it] 70%|███████   | 81/115 [05:24<01:19,  2.33s/it] 71%|███████▏  | 82/115 [05:26<01:16,  2.31s/it] 72%|███████▏  | 83/115 [05:28<01:13,  2.30s/it] 73%|███████▎  | 84/115 [05:30<01:10,  2.29s/it] 74%|███████▍  | 85/115 [05:33<01:07,  2.26s/it] 75%|███████▍  | 86/115 [05:35<01:05,  2.26s/it] 76%|███████▌  | 87/115 [05:37<01:02,  2.24s/it] 77%|███████▋  | 88/115 [05:39<01:00,  2.26s/it] 77%|███████▋  | 89/115 [05:42<00:58,  2.27s/it] 78%|███████▊  | 90/115 [05:44<00:56,  2.27s/it] 79%|███████▉  | 91/115 [05:46<00:54,  2.25s/it] 80%|████████  | 92/115 [05:48<00:51,  2.26s/it] 81%|████████  | 93/115 [05:51<00:49,  2.26s/it] 82%|████████▏ | 94/115 [05:53<00:47,  2.24s/it] 83%|████████▎ | 95/115 [05:55<00:44,  2.23s/it] 83%|████████▎ | 96/115 [05:57<00:42,  2.24s/it] 84%|████████▍ | 97/115 [06:00<00:40,  2.25s/it] 85%|████████▌ | 98/115 [06:02<00:37,  2.23s/it] 86%|████████▌ | 99/115 [06:04<00:35,  2.23s/it] 87%|████████▋ | 100/115 [06:06<00:33,  2.24s/it] 88%|████████▊ | 101/115 [06:08<00:31,  2.23s/it] 89%|████████▊ | 102/115 [06:11<00:29,  2.25s/it] 90%|████████▉ | 103/115 [06:13<00:27,  2.26s/it] 90%|█████████ | 104/115 [06:15<00:24,  2.25s/it] 91%|█████████▏| 105/115 [06:18<00:22,  2.26s/it] 92%|█████████▏| 106/115 [06:20<00:20,  2.26s/it] 93%|█████████▎| 107/115 [06:22<00:18,  2.26s/it] 94%|█████████▍| 108/115 [06:24<00:15,  2.24s/it] 95%|█████████▍| 109/115 [06:26<00:13,  2.23s/it] 96%|█████████▌| 110/115 [06:29<00:11,  2.22s/it] 97%|█████████▋| 111/115 [06:31<00:08,  2.21s/it] 97%|█████████▋| 112/115 [06:33<00:06,  2.21s/it] 98%|█████████▊| 113/115 [06:35<00:04,  2.20s/it] 99%|█████████▉| 114/115 [06:37<00:02,  2.20s/it]100%|██████████| 115/115 [06:40<00:00,  2.16s/it]100%|██████████| 115/115 [06:40<00:00,  3.48s/it]
+=> result
+* total: 3,669
+* correct: 2,260
+* accuracy: 61.6%
+* error: 38.4%
+* macro_f1: 61.3%
+Elapsed: 3:54:47
